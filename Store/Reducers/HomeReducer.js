@@ -6,8 +6,8 @@ const initialState ={
     allHomes : []
 };
 
-export const HomeReducer =(state=initialState, object)=>{
-    switch (object.type) {
+export const HomeReducer =(state=initialState, action)=>{
+    switch (action.type) {
         case ADD_HOME:
             const id = object.newHome.id
             const name= object.newHome.name;
@@ -37,13 +37,14 @@ export const HomeReducer =(state=initialState, object)=>{
 
         case GET_ALL_HOMES:
             
-            console.log('action : ');
+            console.log("action : ");
             console.log(action);
-                
+            let letAllHomes = []; 
+            
             action.getAllHomes.map((object, index) => (
                 
-                console.log('object : '),
-                console.log(object),
+                console.log("object : "),
+                console.log(object), 
 
                 newHome = new Home( 
                     id = object.id, 
@@ -57,14 +58,15 @@ export const HomeReducer =(state=initialState, object)=>{
                     imageLink=object.imageLink
                 ),
 
-                [...state.allHomes,newHome]
+                letAllHomes = [...state.allHomes,newHome]
 
             ));
             
-           /*  console.log('state : ');
-            console.log(state.allHomes); */
+            console.log("state : ");
+            console.log(state.allHomes); 
             ​​​​
-            return state.allHomes;
+            /* const updateAllHome= [...state.allHomes,letAllHomes];
+            return {...state, allHomes:updateAllHome}; */
 
         default:
             return state
