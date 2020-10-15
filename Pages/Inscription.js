@@ -3,11 +3,16 @@ import PersoInput from "../Components/PersoInput";
 import {Button} from "react-native-paper";
 import React from "react";
 import Colors from "../Constants/Colors";
+import {useDispatch} from "react-redux";
+import {getAllProperties} from '../Api/api';
 
 export default function Inscription(props) {
 
+    const dispatch = useDispatch();
+
     function checkUserInput(){
-            props.navigation.replace('Home');
+        dispatch( getAllHomes( [{salut:"coucou",nom:"nom"}] ))
+        props.navigation.replace('Home');
     }
 
     return (
@@ -16,7 +21,7 @@ export default function Inscription(props) {
             <PersoInput texto={"Prenom"}/>
             <PersoInput texto={"Email"}/>
             <PersoInput texto={"Mot de passe"}/>
-            <Button mode='outlined' color={Colors.purpleStyle}  onPress={checkUserInput}>Valider</Button>
+            <Button mode='outlined' color={Colors.purpleStyle} onPress={checkUserInput}>Valider</Button>
         </View>
     );
 }

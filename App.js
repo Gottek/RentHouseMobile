@@ -12,7 +12,7 @@ export default function App(){
         reducerUserKey:userReducers,
         reducerHomeKey:HomeReducer
     });
-    const store =createStore(rootReducer);
+    const store = createStore(rootReducer);
 
     return (
         <Provider store={store}>

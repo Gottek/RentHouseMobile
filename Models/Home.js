@@ -1,15 +1,29 @@
 class Home{
-    constructor(id,name, price, room, wifi,eauChaude, hammame,photoUri,latitude,longitude) {
+
+    constructor(
+        id,
+        name,
+
+        description,
+        rentCost,
+        adress, 
+
+        type,
+        fixedChargesCost,
+        totalArea,
+        imageLink,
+        ){
+        
         this.id=id;
         this.name=name;
-        this.price=price;
-        this.room=room;
-        this.wifi=wifi;
-        this.eauChaude=eauChaude;
-        this.hammame=hammame;
-        this.photoUri=photoUri;
-        this.latitude=latitude;
-        this.longitude=longitude;
+
+        this.description=description;
+        this.rentCost=rentCost;
+        this.adress=adress;
+        this.type=type;
+        this.fixedChargesCost=fixedChargesCost;
+        this.totalArea=totalArea;
+        this.imageLink=imageLink;
     }
 }
 export default Home;
