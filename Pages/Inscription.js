@@ -11,8 +11,9 @@ export default function Inscription(props) {
 
     const dispatch = useDispatch();
 
-    function checkUserInput(){
-        dispatch( getAllHomes( [{salut:"coucou",nom:"nom"}] ))
+    async function checkUserInput(){
+        const data = await getAllProperties();
+        dispatch( getAllHomes( data ))
         props.navigation.replace('Home');
     }
 

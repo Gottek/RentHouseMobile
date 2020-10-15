@@ -8,14 +8,18 @@ import axios from 'axios';
 const URL_API = "http://2669b2c2d966.ngrok.io"; 
 
 export const getAllProperties = async () => {
+    let data;
     await axios.get(URL_API+"/api/property")
     .then(res => {
         console.log("FETCH DATA OK ");
-        console.log(res.data);
-        return res.data;
+        data =  res.data;
     })
     .catch(err => {
         console.log(err)
         return err;
     });
+
+    // console.log("data");
+    // console.log(data);
+    return data;
 }

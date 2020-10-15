@@ -20,7 +20,7 @@ export const HomeReducer =(state=initialState, action)=>{
             const totalArea= object.newHome.totalArea;
             const imageLink= object.newHome.imageLink;
 
-            const newHome = new Home( 
+            let newHome = new Home(
                 id, 
                 name, 
                 description, 
@@ -32,40 +32,37 @@ export const HomeReducer =(state=initialState, action)=>{
                 imageLink
             );
             
-            const updateAllHome= [...state.allHomes,newHome];
+            let updateAllHome= [...state.allHomes,newHome];
             return {...state, allHomes:updateAllHome};
 
         case GET_ALL_HOMES:
-            
-            console.log("action : ");
-            console.log(action);
-            let letAllHomes = []; 
-            
-            /*action.getAllHomes.map((object, index) => (
-                
-                console.log("object : "),
-                console.log(object), 
 
-                newHome = new Home( 
-                    id = object.id, 
-                    name = object.name, 
-                    description = object.description, 
-                    rentCost = object.rentCost, 
-                    adress = object.adress, 
-                    type = object.type, 
-                    fixedChargesCost = object.fixedChargesCost, 
-                    totalArea = object.totalArea, 
-                    imageLink=object.imageLink
-                ),
+            const tableau=action.getAllHomesVar;
+            // console.log(tableau);
 
-                letAllHomes = [...state.allHomes,newHome]
+           const letAllHomes=tableau.map( (object, index) => {
 
-            ));
-            */
-            console.log("state : ");
-            console.log(state.allHomes);
-            /* const updateAllHome= [...state.allHomes,letAllHomes];
-            return {...state, allHomes:updateAllHome}; */
+                // console.log(" OBJECT OK ")
+                // console.log(object),
+                return(newHome = new Home(
+                    object.id,
+                    object.name,
+                    object.description,
+                    object.rentCost,
+                    object.adress,
+                    object.type,
+                    object.fixedChargesCost,
+                    object.totalArea,
+                    object.imageLink
+                ))
+
+                //letAllHomes = [...letAllHomes,newHome]
+
+            })
+
+            // console.log("letAllHomes : ");
+            // console.log(letAllHomes);
+            return {...state, allHomes:letAllHomes};
 
         default:
             return state

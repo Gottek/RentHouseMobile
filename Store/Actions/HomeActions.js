@@ -6,5 +6,5 @@ export const addHome = home => {
     return {type: ADD_HOME, newHome: home}
 }
 export const getAllHomes = allHomes => {
-    return {type: GET_ALL_HOMES, getAllHomes: allHomes}
+    return {type: GET_ALL_HOMES, getAllHomesVar: allHomes}
 }

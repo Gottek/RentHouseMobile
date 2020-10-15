@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
+import {Avatar, Button, Card, Title, Paragraph, Text} from 'react-native-paper';
 import {StyleSheet,View} from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
@@ -28,9 +28,9 @@ const HomeCardView = (props) => {
                                        size={30} color={isClicked} style={styles.iconStyle}/>
                         </View>
                         <View style={styles.iconContainer}>
-                            {props.homeWifi && <AntDesign  name="wifi" size={30} color="black" style={styles.iconStyle}/>}
-                            {props.homeEauChaude && <Entypo name="water" size={30} color="black" style={styles.iconStyle}/>}
-                            {props.homeHammame && <MaterialCommunityIcons name="pool" size={30} color="black" style={styles.iconStyle}/>}
+                            <Text>{props.homeadress}</Text>
+                            <Text>{props.totalArea} M2 </Text>
+                            <Text>{props.fixedChargesCost}</Text>
                         </View>
                     </View>
                 </Card.Actions>
