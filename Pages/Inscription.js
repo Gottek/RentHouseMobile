@@ -5,6 +5,7 @@ import React from "react";
 import Colors from "../Constants/Colors";
 import {useDispatch} from "react-redux";
 import {getAllProperties} from '../Api/api';
+import {getAllHomes} from "../Store/Actions/HomeActions";
 
 export default function Inscription(props) {
 

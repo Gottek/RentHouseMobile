@@ -41,7 +41,7 @@ export const HomeReducer =(state=initialState, action)=>{
             console.log(action);
             let letAllHomes = []; 
             
-            action.getAllHomes.map((object, index) => (
+            /*action.getAllHomes.map((object, index) => (
                 
                 console.log("object : "),
                 console.log(object), 
@@ -61,10 +61,9 @@ export const HomeReducer =(state=initialState, action)=>{
                 letAllHomes = [...state.allHomes,newHome]
 
             ));
-            
+            */
             console.log("state : ");
-            console.log(state.allHomes); 
-            ​​​​
+            console.log(state.allHomes);
             /* const updateAllHome= [...state.allHomes,letAllHomes];
             return {...state, allHomes:updateAllHome}; */
 
