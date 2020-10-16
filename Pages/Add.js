@@ -1,7 +1,8 @@
-import {StyleSheet, View,Text} from "react-native";
-import PersoInput from "../Components/PersoInput";
-import {Button, DarkTheme,Card} from "react-native-paper";
 import React, {useEffect, useState} from "react";
+import {StyleSheet, View,Text} from "react-native";
+import {Picker} from '@react-native-community/picker';
+import PersoInput from "../Components/PersoInput";
+import {Button, DarkTheme, Card, TextInput} from "react-native-paper";
 import {ScrollView} from "react-native";
 import {KeyboardAvoidingView} from "react-native";
 import MyImagePicker from "../Components/MyImagePicker";
@@ -17,31 +18,42 @@ import {addHome} from "../Store/Actions/HomeActions";
 
 export const Add =(props)=> {
 
-    const [userLocation,setUserLocation] = useState();
-    const [price,setPrice] = useState('0');
+    const dispatch=useDispatch();
+
+    const [userLocation,setUserLocation] = useState(null);
+    /*const [price,setPrice] = useState('0');
     const [id,setId] = useState(Math.random().toString());
     const [room,setRoom] = useState('0');
     const [name,setName] = useState("");
     const [photoUri,setPhotoUri] = useState("");
     const [wifi,setWifi] = useState(false);
     const [eauChaude,setEauChaude] = useState(false);
-    const [hammame,setHammame] = useState(false);
+    const [hammame,setHammame] = useState(false);*/
 
-    const dispatch=useDispatch();
+    const stateDefaultValues = {
+
+        description:"Belle maison tout ça tout ça",
+        adress: "Rue Okay",
+        type: 'house',
+        totalArea: 138,
+        rentCost:764,
+        fixedChargesCost:324,
+        imageLink:"",
+        isCurrentlyRented:false,
+    }
+
+    const [state,setState] = React.useState(stateDefaultValues);
+
 
     function sendToHome(){
-        dispatch(addHome({id,name,price,room,wifi,eauChaude,hammame,photoUri}))
-        clean()
-        props.navigation.navigate('Home')
+        dispatch(addHome({state}))
+        // console.log("state")
+        // console.log(state)
+        clean();
+        props.navigation.navigate('Home');
     }
     const clean=()=>{
-        setWifi(false);
-        setRoom('0');
-        setPrice('0');
-        setName("");
-        setHammame(false);
-        setEauChaude(false)
-        setPhotoUri('')
+        setState(stateDefaultValues);
     }
     const currentLocation=props.route.params;
     const { height } = Dimensions.get('window');
@@ -56,26 +68,33 @@ export const Add =(props)=> {
             <Card style={styles.cardContainer}>
                 <ScrollView  showsVerticalScrollIndicator={false} contentContainerStyle={{height:height+height/3}}>
                     <View style={styles.mainViewContainer}>
-                        <MyImagePicker onImageTaken={(uriFromDevice)=>setPhotoUri(uriFromDevice)}/>
+                        <MyImagePicker onImageTaken={(uriFromDevice)=>setState({...state, imageLink: uriFromDevice})}/>
                         <View style={styles.homeName}>
-                            <PersoInput texto={"Nom de la maison"} getText={(text)=>setName(text)} valeur={name}/>
+                            <PersoInput texto={"Description de la maison"} getText={(text)=>setState({...state,description: text})} valeur={state.description}/>
+                        </View>
+                        <View style={styles.homeName}>
+                            <PersoInput texto={"Adresse"} getText={(text)=>setState({...state, adress: text})} valeur={state.adress}/>
                         </View>
                         <View style={styles.prixChambreContainer}>
-                            <PersoInput texto={"Prix"} getText={(text)=>setPrice(text)} valeur={price}/>
-                            <PersoInput texto={"Chambre"} getText={(text)=>setRoom(text)} valeur={room}/>
+                            <PersoInput texto={"Prix"} getText={(text)=>setState({...state, rentCost: text})} valeur={state.rentCost.toString()}/>
+                            <Picker
+                                selectedValue={state.type}
+                                style={{height: 50, width: 100}}
+                                onValueChange={(itemValue, itemIndex) =>
+                                    setState({...state, type: itemValue})
+                                }>
+                                <Picker.Item label="Maison" value="house" />
+                                <Picker.Item label="Appart" value="flat" />
+                                <Picker.Item label="Chambre" value="room" />
+                            </Picker>
                         </View>
                         <View style={styles.checkBoxContainer}>
+                            <PersoInput texto={"Aire Totale"} getText={(text)=>setState({...state, totalArea: text})} valeur={state.totalArea.toString()}/>
+                            <PersoInput texto={"Charges fixes"} getText={(text)=>setState({...state, fixedChargesCost: text})} valeur={state.fixedChargesCost.toString()}/>
+
                             <View style={styles.textCheck}>
-                                <MyCheckBox getChecked={(text)=>setWifi(text)} valeur={wifi}/>
-                                <Text>WI-FI</Text>
-                            </View>
-                            <View style={styles.textCheck}>
-                                <MyCheckBox getChecked={(text)=>setEauChaude(text)} valeur={eauChaude}/>
-                                <Text>Eau chaude</Text>
-                            </View>
-                            <View style={styles.textCheck}>
-                                <MyCheckBox getChecked={(text)=>setHammame(text)} valeur={hammame}/>
-                                <Text>Hammam</Text>
+                                <MyCheckBox getChecked={(text)=>setState({...state, isCurrentlyRented:text})} valeur={state.isCurrentlyRented}/>
+                                <Text>Actuellement loué ?</Text>
                             </View>
                         </View>
                         <LocationSection  navigation={props.navigation.navigate}/>

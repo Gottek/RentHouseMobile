@@ -1,6 +1,7 @@
 import {combineReducers} from "redux";
 import {ADD_HOME, GET_ALL_HOMES} from "../Actions/HomeActions";
 import Home from "../../Models/Home";
+import {handleOnSubmit} from "../../Api/api";
 
 const initialState ={
     allHomes : []
@@ -9,21 +10,20 @@ const initialState ={
 export const HomeReducer =(state=initialState, action)=>{
     switch (action.type) {
         case ADD_HOME:
-            const id = object.newHome.id
-            const name= object.newHome.name;
 
-            const description= object.newHome.description;
-            const rentCost= object.newHome.rentCost;
-            const adress= object.newHome.adress;
-            const type= object.newHome.type;
-            const fixedChargesCost=object.newHome.fixedChargesCost;
-            const totalArea= object.newHome.totalArea;
-            const imageLink= object.newHome.imageLink;
+            // const name= object.newHome.name;
+            const homeAdd = action.newHome.state;
+
+            const description= homeAdd.description;
+            const rentCost= homeAdd.rentCost;
+            const adress= homeAdd.adress;
+            const type= homeAdd.type;
+            const fixedChargesCost=homeAdd.fixedChargesCost;
+            const totalArea= homeAdd.totalArea;
+            const imageLink= homeAdd.imageLink;
 
             let newHome = new Home(
-                id, 
-                name, 
-                description, 
+                description,
                 rentCost, 
                 adress, 
                 type, 
@@ -31,7 +31,14 @@ export const HomeReducer =(state=initialState, action)=>{
                 totalArea, 
                 imageLink
             );
-            
+
+            const onSubmit = async () =>{
+                const submit = await handleOnSubmit (newHome);
+                submit();
+                console.log("Maison insérée dans la BDD");
+            }
+
+            onSubmit();
             let updateAllHome= [...state.allHomes,newHome];
             return {...state, allHomes:updateAllHome};
 

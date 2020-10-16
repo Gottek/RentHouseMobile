@@ -5,7 +5,8 @@ import axios from 'axios';
  * la commande cmd est : ngrok.exe http 5000 
  * Neccesaire pour transiter les requétes API vers l'appareil mobile physique
 */
-const URL_API = "http://2669b2c2d966.ngrok.io"; 
+
+const URL_API = "http://25271c454f70.ngrok.io";
 
 export const getAllProperties = async () => {
     let data;
@@ -18,8 +19,12 @@ export const getAllProperties = async () => {
         console.log(err)
         return err;
     });
-
-    // console.log("data");
-    // console.log(data);
     return data;
+}
+
+export const handleOnSubmit = async (newHome) => {
+    await axios.post(URL_API+"/api/property/" , newHome)
+        .then(res => console.log(res))
+        .then(console.log("Home insérée ! "))
+        .catch(err => console.log(err))
 }

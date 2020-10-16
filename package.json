@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
+    "@react-native-community/picker": "^1.8.1",
     "react-navigation": "^4.4.1"
   },
   "private": true

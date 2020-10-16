@@ -19,11 +19,11 @@ export default function Inscription(props) {
 
     return (
         <View style={styles.container}>
-            <PersoInput texto={"Nom"}/>
-            <PersoInput texto={"Prenom"}/>
-            <PersoInput texto={"Email"}/>
-            <PersoInput texto={"Mot de passe"}/>
-            <Button mode='outlined' color={Colors.purpleStyle} onPress={checkUserInput}>Valider</Button>
+            <PersoInput texto={"Nom"} />
+            <PersoInput texto={"Prenom"} />
+            <PersoInput texto={"Email"} />
+            <PersoInput texto={"Mot de passe"} />
+            <Button mode='outlined' color={Colors.purpleStyle} onPress={checkUserInput}> Valider </Button>
         </View>
     );
 }
