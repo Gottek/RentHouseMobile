@@ -10,10 +10,8 @@ const initialState ={
 export const HomeReducer =(state=initialState, action)=>{
     switch (action.type) {
         case ADD_HOME:
-
             // const name= object.newHome.name;
-            const homeAdd = action.newHome.state;
-
+            const homeAdd = action.newHome;
             const description= homeAdd.description;
             const rentCost= homeAdd.rentCost;
             const adress= homeAdd.adress;
@@ -32,13 +30,6 @@ export const HomeReducer =(state=initialState, action)=>{
                 imageLink
             );
 
-            const onSubmit = async () =>{
-                const submit = await handleOnSubmit (newHome);
-                submit();
-                console.log("Maison insérée dans la BDD");
-            }
-
-            onSubmit();
             let updateAllHome= [...state.allHomes,newHome];
             return {...state, allHomes:updateAllHome};
 

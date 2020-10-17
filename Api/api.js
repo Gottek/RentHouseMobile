@@ -6,7 +6,7 @@ import axios from 'axios';
  * Neccesaire pour transiter les requétes API vers l'appareil mobile physique
 */
 
-const URL_API = "http://25271c454f70.ngrok.io";
+const URL_API = "http://b3635e98cdd9.ngrok.io";
 
 export const getAllProperties = async () => {
     let data;
@@ -24,7 +24,6 @@ export const getAllProperties = async () => {
 
 export const handleOnSubmit = async (newHome) => {
     await axios.post(URL_API+"/api/property/" , newHome)
-        .then(res => console.log(res))
-        .then(console.log("Home insérée ! "))
+        .then(()=>console.log("Home insérée ! "))
         .catch(err => console.log(err))
 }

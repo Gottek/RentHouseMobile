@@ -46,7 +46,7 @@ export const Add =(props)=> {
 
 
     function sendToHome(){
-        dispatch(addHome({state}))
+        dispatch(addHome(state))
         // console.log("state")
         // console.log(state)
         clean();
