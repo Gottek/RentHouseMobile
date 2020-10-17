@@ -5,13 +5,14 @@ import {useSelector} from "react-redux";
 import HomeCardView from "./HomeCardView";
 import {getAllHomes} from "../Store/Actions/HomeActions";
 
-export const HomesList=()=>{
+export const HomesList=({navigation})=>{
 
     const homesArray=useSelector(state=>state.reducerHomeKey.allHomes);
     // console.log(homesArray);
     const renderHome = Data => {
         return (
             <HomeCardView
+                idHome={12} //j'ai hardcoder faut changé
                 userName={"Jean-Jacque"}
                 userDescription={"1er du nom"}
                 homeTitle={Data.item.description}
@@ -21,6 +22,7 @@ export const HomesList=()=>{
                 homeImage={Data.item.imageLink}
                 totalArea = {Data.item.totalArea}
                 fixedChargesCost = {Data.item.fixedChargesCost}
+                navigation={navigation}
             />
         );
     }

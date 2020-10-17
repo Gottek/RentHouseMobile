@@ -6,7 +6,7 @@ import axios from 'axios';
  * Neccesaire pour transiter les requétes API vers l'appareil mobile physique
 */
 
-const URL_API = "http://b3635e98cdd9.ngrok.io";
+const URL_API = "http://1be311a39ef7.ngrok.io";
 
 export const getAllProperties = async () => {
     let data;

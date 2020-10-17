@@ -12,9 +12,11 @@ const HomeCardView = (props) => {
 
     const LeftContent = () => <Avatar.Image size={50} source={require('../assets/Photos/PhotoProfileExample.webp')} />
 
+    const redirection =()=>props.navigation.navigate('HomeDetails', {name: "Détailles de la maison",idHome:props.idHome,autorisation:true})
+
     return(
-        <View >
-            <Card style={styles.cardStyle} >
+        <View>
+            <Card style={styles.cardStyle} onPress={redirection}>
                 <Card.Title title={props.userName} subtitle={props.userDescription} left={LeftContent} />
                 <Card.Content>
                     <Title>{props.homeTitle}</Title>

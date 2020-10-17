@@ -8,7 +8,7 @@ export default function Home({route,navigation}){
 
     return(
         <View style={styles.viewContainer}>
-            <HomesList/>
+            <HomesList navigation={navigation}/>
         </View>
 
     );

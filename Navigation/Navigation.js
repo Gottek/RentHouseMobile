@@ -12,6 +12,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Colors from "../Constants/Colors";
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import {Maps, screenOptionMaps} from "../Pages/Maps";
+import HomeDetails, {screenOptionHomeDetails} from "../Pages/HomeDetails";
 
 const Stack = createStackNavigator();
 export const StackNavigator=()=>{
@@ -23,6 +24,7 @@ export const StackNavigator=()=>{
             <Stack.Screen name="Connexion" component={Connexion}/>
             <Stack.Screen name="Inscription" component={Inscription}/>
             <Stack.Screen name="Maps" component={Maps} options={screenOptionMaps}/>
+            <Stack.Screen name="HomeDetails" component={HomeDetails} options={screenOptionHomeDetails}/>
         </Stack.Navigator>
     );
 }
