@@ -3,16 +3,17 @@ import { TextInput } from 'react-native-paper';
 import createCSSStyleSheet from "react-native-web/dist/exports/StyleSheet/createCSSStyleSheet";
 import {ScrollView, StyleSheet} from "react-native";
 
-const PersoInput = ({texto,getText,valeur,disabled}) => {
+const PersoInput = ({texto,getText,valeur,disabled,name}) => {
 
     return (
         <TextInput
+            name={name}
             disabled={disabled}
             mode='outlined'
             label={texto}
             value={valeur}
             style={styles.inputStyle}
-            onChangeText={text => {getText(text)}}
+            onChangeText={getText}
         />
     );
 };

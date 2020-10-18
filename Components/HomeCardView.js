@@ -22,7 +22,7 @@ const HomeCardView = (props) => {
                     <Title>{props.homeTitle}</Title>
                     <Paragraph style={{marginBottom: 20}}>prix: {props.homePrice}€ - chambre: {props.homeRoom}</Paragraph>
                 </Card.Content>
-                {/*<Card.Cover source={{ uri: props.homeImage }} />*/}
+                <Card.Cover source={{ uri: props.homeImage }} />
                 <Card.Actions>
                     <View style={styles.heartIconsContainer}>
                         <View style={styles.heartContainer}>

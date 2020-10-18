@@ -1,8 +1,7 @@
 class Home{
 
     constructor(
-        // name,
-
+        idProperty,
         description,
         rentCost,
         adress, 
@@ -11,10 +10,12 @@ class Home{
         fixedChargesCost,
         totalArea,
         imageLink,
+
         ){
         
         // this.name=name;
 
+        this.idProperty=idProperty;
         this.description=description;
         this.rentCost=rentCost;
         this.adress=adress;

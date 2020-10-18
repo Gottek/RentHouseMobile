@@ -6,12 +6,12 @@ import axios from 'axios';
  * Neccesaire pour transiter les requétes API vers l'appareil mobile physique
 */
 
-const URL_API = "http://1be311a39ef7.ngrok.io";
+const URL_API = "http://c81d84234df4.ngrok.io";
 
 export const getAllProperties = async () => {
     let data;
     await axios.get(URL_API+"/api/property")
-    .then(res => data =  res.data)
+    .then(res => data = res.data)
     .catch(err => console.log(err));
 
     return data;
@@ -19,6 +19,18 @@ export const getAllProperties = async () => {
 
 export const handleOnSubmit = async (newHome) => {
     await axios.post(URL_API+"/api/property/" , newHome)
-        .then(()=>console.log("Home insérée ! "))
+        .then(()=>console.log("Maison inséré ! "))
+        .catch(err => console.log(err))
+}
+
+export const updateHome = async (updatedHome) => {
+    await axios.put(URL_API+"/api/property/"+updatedHome.idProperty, updatedHome)
+        .then(()=>console.log("Home modifiée"))
+        .catch(err => console.log(err))
+}
+
+export const deleteHome = async (idHome) => {
+    await axios.delete(URL_API+"/api/property/"+idHome)
+        .then(()=>console.log("Home supprimée ! "))
         .catch(err => console.log(err))
 }

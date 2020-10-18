@@ -10,9 +10,10 @@ export const HomesList=({navigation})=>{
     const homesArray=useSelector(state=>state.reducerHomeKey.allHomes);
     // console.log(homesArray);
     const renderHome = Data => {
+        // console.log(Data.item.idProperty)
         return (
             <HomeCardView
-                idHome={12} //j'ai hardcoder faut changé
+                idHome={Data.item.idProperty}
                 userName={"Jean-Jacque"}
                 userDescription={"1er du nom"}
                 homeTitle={Data.item.description}

@@ -86,7 +86,7 @@ export const Add =(props)=> {
             <Card style={styles.cardContainer}>
                 <ScrollView  showsVerticalScrollIndicator={false} contentContainerStyle={{height:height+height/3}}>
                     <View style={styles.mainViewContainer}>
-                        <MyImagePicker onImageTaken={(uriFromDevice)=>setState({...state, imageLink: uriFromDevice})}/>
+                        {/*<MyImagePicker onImageTaken={(uriFromDevice)=>setState({...state, imageLink: uriFromDevice})}/>*/}
                         <View style={styles.homeName}>
                             <PersoInput texto={"Description de la maison"} getText={(text)=>setState({...state,description: text})} valeur={state.description}/>
                         </View>
