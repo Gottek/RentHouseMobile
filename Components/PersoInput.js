@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { TextInput } from 'react-native-paper';
 import createCSSStyleSheet from "react-native-web/dist/exports/StyleSheet/createCSSStyleSheet";
-import {StyleSheet} from "react-native";
+import {ScrollView, StyleSheet} from "react-native";
 
-const PersoInput = ({texto,getText,valeur}) => {
+const PersoInput = ({texto,getText,valeur,disabled}) => {
 
     return (
         <TextInput
+            disabled={disabled}
             mode='outlined'
             label={texto}
             value={valeur}
