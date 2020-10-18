@@ -4,12 +4,22 @@ import React, {useState} from "react";
 import {Button, TextInput} from 'react-native-paper';
 import Colors from "../Constants/Colors";
 import {TouchableWithoutFeedback, Keyboard} from "react-native";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { CommonActions } from '@react-navigation/native';
+import {getAllProperties} from "../Api/api";
+import {getAllHomes} from "../Store/Actions/HomeActions";
 
 export default function ProfilesPage(props){
 
     const currentUser = useSelector(state=>state.reducerUserKey.userName)
+
+    const dispatch = useDispatch();
+
+    async function checkUserInput(){
+        const data = await getAllProperties();
+        dispatch( getAllHomes( data ))
+        props.navigation.replace('Home');
+    }
 
     /*
     const salut =()=>{console.log("bonjour")}
@@ -26,16 +36,14 @@ export default function ProfilesPage(props){
     const checkUserInput=()=>saluttt("oui oui"); // demander à salutttt de s'executer c'est demander à nop de s'executer
 
      */
-    const toNavigation=()=>{
-        props.navigation.replace('Inscription');
-    }
+
     return (
         <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
 
             <View style={styles.container}>
                 <PersoInput texto={"Email"}/>
                 <PersoInput texto={"Mot de passe"}/>
-                <Button mode='outlined' color={Colors.purpleStyle} onPress={toNavigation}>Valider</Button>
+                <Button mode='outlined' color={Colors.purpleStyle} onPress={checkUserInput}>Valider</Button>
             </View>
         </TouchableWithoutFeedback>
     );

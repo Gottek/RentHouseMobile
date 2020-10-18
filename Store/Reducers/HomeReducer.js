@@ -35,10 +35,10 @@ export const HomeReducer =(state=initialState, action)=>{
 
         case GET_ALL_HOMES:
 
-            const tableau=action.getAllHomesVar;
-            // console.log(tableau);
+            const tableau = action.getAllHomesVar;
+            // console.log(action);
 
-           const letAllHomes=tableau.map( (object, index) => {
+            const letAllHomes=tableau.map( (object, index) => {
 
                 // console.log(" OBJECT OK ")
                 // console.log(object),

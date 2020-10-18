@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import {StyleSheet, View,Text} from "react-native";
 import {Picker} from '@react-native-community/picker';
 import PersoInput from "../Components/PersoInput";
@@ -13,22 +13,42 @@ import {LocationSection} from "../Components/LocationSection";
 import Home from "../Models/Home";
 import {useDispatch} from "react-redux";
 import {addHome} from "../Store/Actions/HomeActions";
+import * as Notifications from 'expo-notifications';
 
+Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: true,
+    }),
+});
 
 
 export const Add =(props)=> {
 
     const dispatch=useDispatch();
 
+    const [notification, setNotification] = useState(false);
+    const notificationListener = useRef();
+    const responseListener = useRef();
+
+    useEffect(() => {
+
+        notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+            setNotification(notification);
+        });
+
+        responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+            console.log(response);
+        });
+
+        return () => {
+            Notifications.removeNotificationSubscription(notificationListener);
+            Notifications.removeNotificationSubscription(responseListener);
+        };
+    }, []);
+
     const [userLocation,setUserLocation] = useState(null);
-    /*const [price,setPrice] = useState('0');
-    const [id,setId] = useState(Math.random().toString());
-    const [room,setRoom] = useState('0');
-    const [name,setName] = useState("");
-    const [photoUri,setPhotoUri] = useState("");
-    const [wifi,setWifi] = useState(false);
-    const [eauChaude,setEauChaude] = useState(false);
-    const [hammame,setHammame] = useState(false);*/
 
     const stateDefaultValues = {
 
@@ -45,10 +65,9 @@ export const Add =(props)=> {
     const [state,setState] = React.useState(stateDefaultValues);
 
 
-    function sendToHome(){
+    async function sendToHome(){
+        await schedulePushNotification();
         dispatch(addHome(state))
-        // console.log("state")
-        // console.log(state)
         clean();
         props.navigation.navigate('Home');
     }
@@ -57,7 +76,6 @@ export const Add =(props)=> {
     }
     const currentLocation=props.route.params;
     const { height } = Dimensions.get('window');
-
 
     useEffect(()=>{
         if(currentLocation)setUserLocation(currentLocation)
@@ -106,7 +124,16 @@ export const Add =(props)=> {
         </KeyboardAvoidingView>
     );
 }
-
+async function schedulePushNotification() {
+    await Notifications.scheduleNotificationAsync({
+        content: {
+            title: "Home ajouté ! ",
+            body: "Vous la retrouverez sur la page d'accueil...",
+            // data: { data: 'goes ' },
+        },
+        trigger: { seconds: 1 },
+    });
+}
 
 const styles = StyleSheet.create({
     mainContainer: {

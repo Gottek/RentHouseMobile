@@ -3,7 +3,7 @@ import { Switch } from 'react-native-paper';
 import Colors from "../Constants/Colors";
 
 const MySwitch = () => {
-    const [isSwitchOn, setIsSwitchOn] = React.useState(false);
+    const [isSwitchOn, setIsSwitchOn] = React.useState(true);
 
     const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 

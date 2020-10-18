@@ -31,7 +31,7 @@ export default function Profile(props){
                 <Divider/>
                 <SectionProfile text="Theme sombre"/>
                 <Divider/>
-                <SectionProfile text="Mode avion"/>
+                <SectionProfile text="Tri Activé "/>
                 <Divider/>
                 <Button mode='outlined' color={Colors.purpleStyle} onPress={LogOut}>Log out</Button>
 

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Inscription from "../Pages/Inscription";
 import Connexion from "../Pages/Connexion";
 import Home from "../Pages/Home";
 import { createStackNavigator } from '@react-navigation/stack';
@@ -21,7 +20,6 @@ export const StackNavigator=()=>{
                 headerTitle: getHeaderTitle(route),
             })}/>
             <Stack.Screen name="Connexion" component={Connexion}/>
-            <Stack.Screen name="Inscription" component={Inscription}/>
             <Stack.Screen name="Maps" component={Maps} options={screenOptionMaps}/>
         </Stack.Navigator>
     );
