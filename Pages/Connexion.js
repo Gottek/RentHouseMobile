@@ -6,19 +6,66 @@ import Colors from "../Constants/Colors";
 import {TouchableWithoutFeedback, Keyboard} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 import { CommonActions } from '@react-navigation/native';
-import {getAllProperties} from "../Api/api";
+import {getAllClient, getAllProperties} from "../Api/api";
 import {getAllHomes} from "../Store/Actions/HomeActions";
+import Home from "../Models/Home";
+import {setCurrentUserID} from "../Store/Actions/UsersActions";
 
 export default function ProfilesPage(props){
 
-    const currentUser = useSelector(state=>state.reducerUserKey.userName)
 
     const dispatch = useDispatch();
 
+    const [idcurrentUser, setidcurrentUser] = React.useState(0);
+    const [inputsOK, setInputsOK] = React.useState(false);
+    const [allClients,setAllClients] = React.useState({});
+    const [userInput,setUserInput] = React.useState({
+        name:"",
+        codePostal:""
+    });
+
+    React.useEffect(() => {
+
+        const fetchData = async () => {
+            const allcli = await getAllClient();
+            setAllClients(allcli);
+        }
+        fetchData().then("fetch OK").catch(err => console.log(err));
+    },[]);
+
     async function checkUserInput(){
-        const data = await getAllProperties();
-        dispatch( getAllHomes( data ))
-        props.navigation.replace('Home');
+        await checkUserData();
+        if(inputsOK){
+            dispatch( getAllHomes() )
+            dispatch( setCurrentUserID(idcurrentUser) )
+            props.navigation.replace('Home');
+        }
+        else{
+            console.log("Pas ok")
+        }
+    }
+
+    const checkUserData = () => {
+
+        allClients.map( (object, index) => {
+
+            console.log(object.name)
+            console.log(object.postalCode)
+            console.log(userInput.name)
+            console.log(userInput.codePostal)
+
+            let correctName = object.name;
+            let correctPostal = object.postalCode;
+            let idCurrent = object.idClient;
+
+            if(correctName === userInput.name && correctPostal === userInput.codePostal){
+                setInputsOK(true);
+                setidcurrentUser(idCurrent);
+            }
+
+            console.log(inputsOK);
+
+        })
     }
 
     /*
@@ -41,8 +88,8 @@ export default function ProfilesPage(props){
         <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
 
             <View style={styles.container}>
-                <PersoInput texto={"Email"}/>
-                <PersoInput texto={"Mot de passe"}/>
+                <PersoInput texto={"Email"} valeur={userInput.name} getText={(t) => setUserInput({...userInput,name: t}) }/>
+                <PersoInput texto={"Mot de passe"} valeur={userInput.postalCode} getText={(t) => setUserInput({...userInput,codePostal: t})} />
                 <Button mode='outlined' color={Colors.purpleStyle} onPress={checkUserInput}>Valider</Button>
             </View>
         </TouchableWithoutFeedback>

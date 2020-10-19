@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React,{useState} from 'react';
 import MainNav from "./Navigation/MainNav";
 import {createStore, combineReducers, applyMiddleware} from "redux";
-import {userReducers} from "./Store/Reducers/Users"
+import {userReducers} from "./Store/Reducers/UsersReducer"
 import {Provider} from "react-redux";
 import {HomeReducer} from "./Store/Reducers/HomeReducer";
 import thunk from "redux-thunk";

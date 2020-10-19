@@ -1,9 +1,7 @@
 import React from 'react';
 import {FlatList, StyleSheet, View} from "react-native";
-import {Button} from "react-native-paper";
 import {useSelector} from "react-redux";
 import HomeCardView from "./HomeCardView";
-import {getAllHomes} from "../Store/Actions/HomeActions";
 
 export const HomesList=({navigation})=>{
 

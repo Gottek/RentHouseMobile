@@ -4,7 +4,6 @@ import MySwitch from "./Switch";
 
 
 export const SectionProfile =(props)=>{
-
     return(
         <View style={styles.MainContainer}>
             <View>
@@ -13,7 +12,7 @@ export const SectionProfile =(props)=>{
                 </Text>
             </View>
             <View>
-                <MySwitch/>
+                <MySwitch onClick={props.onClick} default={props.default} />
             </View>
         </View>
     );

@@ -11,9 +11,10 @@ import {Dimensions} from 'react-native';
 import MyCheckBox from "../Components/MyCheckBox";
 import {LocationSection} from "../Components/LocationSection";
 import Home from "../Models/Home";
-import {useDispatch} from "react-redux";
 import {addHome} from "../Store/Actions/HomeActions";
 import * as Notifications from 'expo-notifications';
+import {useDispatch, useSelector} from "react-redux";
+
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -27,6 +28,7 @@ Notifications.setNotificationHandler({
 export const Add =(props)=> {
 
     const dispatch=useDispatch();
+    const displayNotif=useSelector(state=>state.reducerUserKey.notif);
 
     const [notification, setNotification] = useState(false);
     const notificationListener = useRef();
@@ -60,13 +62,15 @@ export const Add =(props)=> {
         fixedChargesCost:324,
         imageLink:"",
         isCurrentlyRented:false,
+        idProprio:0, //Propriétaire par défaut a changer
     }
 
     const [state,setState] = React.useState(stateDefaultValues);
 
 
     async function sendToHome(){
-        await schedulePushNotification();
+
+        displayNotif ? await schedulePushNotification():'';
         dispatch(addHome(state))
         clean();
         props.navigation.navigate('Home');

@@ -10,7 +10,7 @@ class Home{
         fixedChargesCost,
         totalArea,
         imageLink,
-
+        idProprio,
         ){
         
         // this.name=name;
@@ -23,6 +23,7 @@ class Home{
         this.fixedChargesCost=fixedChargesCost;
         this.totalArea=totalArea;
         this.imageLink=imageLink;
+        this.idProprio=idProprio;
     }
 }
 export default Home;

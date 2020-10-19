@@ -22,6 +22,7 @@ export default function HomeDetails (props){
         rentCost:1,
         fixedChargesCost:1,
         totalArea:1,
+        isCurrentlyRented:false,
     });
 
     React.useEffect (() => {
@@ -30,7 +31,7 @@ export default function HomeDetails (props){
             const selectorHome = await singleHome.find(home=>home.idProperty===idHome);
             setState(selectorHome);
         }
-        onvaAttendre().then(() => console.log("ok"));
+        onvaAttendre().then();
     },[])
 
     //pas besoin de clean le state, il se fait détruire quand tu change de page
@@ -51,8 +52,9 @@ export default function HomeDetails (props){
         setState({[name]: text});
     }*/
 
-    const handleChangeIsRented = (e) => {
-        setState(c => ({...c, isCurrentlyRented: !state.isCurrentlyRented}));
+    const handleChangeIsRented = () => {
+        setState( {...state, isCurrentlyRented: !state.isCurrentlyRented} );
+        console.log(state.isCurrentlyRented);
     }
 
 
@@ -78,7 +80,7 @@ export default function HomeDetails (props){
                             <PersoInput disabled={!isAdmin} name={"fixedChargesCost"} getText={(text)=>setState({...state, fixedChargesCost: text})} texto={"Charges fixes"} valeur={state.fixedChargesCost.toString()} />
 
                             <View style={styles.textCheck}>
-                                <MyCheckBox disabled={!isAdmin} name={"isCurrentlyRented"} handleChange={handleChangeIsRented} valeur={state.isCurrentlyRented}/>
+                                <MyCheckBox disabled={!isAdmin} handleChange={handleChangeIsRented} valeur={state.isCurrentlyRented}/>
                                 <Text>Actuellement loué ?</Text>
                             </View>
                         </View>

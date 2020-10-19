@@ -3,11 +3,25 @@ import {StyleSheet, Text, View,Image} from "react-native";
 import {SectionProfile} from "../Components/SectionProfile";
 import {Button, Divider} from 'react-native-paper';
 import Colors from "../Constants/Colors";
+import {getAllHomes, selectOwnHome} from "../Store/Actions/HomeActions";
+import {useDispatch, useSelector} from "react-redux";
+import {activeNotif} from "../Store/Actions/UsersActions";
+
 
 export default function Profile(props){
 
+    const dispatch=useDispatch();
+    const cuurentID=useSelector(state=>state.reducerUserKey.currentID);
+
     function LogOut(){
         console.log("salut tout le monde");
+    }
+
+    const ownHomesActive = (valeur) => {
+        valeur ? dispatch(selectOwnHome(cuurentID)) : dispatch(getAllHomes());
+    }
+    const notifActive = (valeur) => {
+        dispatch(activeNotif(valeur));
     }
 
     return(
@@ -23,15 +37,16 @@ export default function Profile(props){
                     </View>
                     <View style={styles.containerNom}>
                         <Text>1er du nom</Text>
+                        <Text>ID : {cuurentID}</Text>
                     </View>
                 </View>
             </View>
             <View style={styles.containerSecondaire}>
-                <SectionProfile text="Notifactions"/>
+                <SectionProfile text="Notifactions" onClick={notifActive} default={true} />
                 <Divider/>
-                <SectionProfile text="Theme sombre"/>
+                <SectionProfile text="Theme sombre" onClick={() => console.log("ok DARKTHEME")} default={false}/>
                 <Divider/>
-                <SectionProfile text="Tri Activé "/>
+                <SectionProfile text="Tri Activé" onClick={ownHomesActive} default={false}/>
                 <Divider/>
                 <Button mode='outlined' color={Colors.purpleStyle} onPress={LogOut}>Log out</Button>
 

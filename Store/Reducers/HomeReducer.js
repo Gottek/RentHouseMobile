@@ -1,5 +1,5 @@
 import {combineReducers} from "redux";
-import {ADD_HOME, DELETE_HOME_BY_ID, GET_ALL_HOMES, UPDATE_HOME_BY_ID} from "../Actions/HomeActions";
+import {ADD_HOME, DELETE_HOME_BY_ID, GET_ALL_HOMES, UPDATE_HOME_BY_ID,SELECT_OWN_HOMES} from "../Actions/HomeActions";
 import Home from "../../Models/Home";
 import {handleOnSubmit} from "../../Api/api";
 
@@ -20,6 +20,7 @@ export const HomeReducer =(state=initialState, action)=>{
             const fixedChargesCost=homeAdd.fixedChargesCost;
             const totalArea= homeAdd.totalArea;
             const imageLink= homeAdd.imageLink;
+            const idProprio= homeAdd.idProprio;
 
             let newHome = new Home(
                 null,
@@ -29,7 +30,8 @@ export const HomeReducer =(state=initialState, action)=>{
                 type, 
                 fixedChargesCost, 
                 totalArea, 
-                imageLink
+                imageLink,
+                idProprio
             );
 
             let updateAllHome= [...state.allHomes,newHome];
@@ -50,7 +52,8 @@ export const HomeReducer =(state=initialState, action)=>{
                     object.type,
                     object.fixedChargesCost,
                     object.totalArea,
-                    object.imageLink
+                    object.imageLink,
+                    object.idProprio
                 ))
 
             })
@@ -70,19 +73,24 @@ export const HomeReducer =(state=initialState, action)=>{
                 action.updateHomeVar.type,
                 action.updateHomeVar.fixedChargesCost,
                 action.updateHomeVar.totalArea,
-                action.updateHomeVar.imageLink
+                action.updateHomeVar.imageLink,
+                action.updateHomeVar.idProprio,
             );
-            const updatedAllHomes = [...state.allHomes];
 
+            const updatedAllHomes = [...state.allHomes];
             updatedAllHomes[homesIndex] = updatedHome;
 
             return {...state, allHomes: updatedAllHomes};
 
         case DELETE_HOME_BY_ID:
-
             return {...state, allHomes : state.allHomes.filter(home => home.idProperty !== action.idHomeEjected)};
 
+        case SELECT_OWN_HOMES:
+            console.log("Sa marche")
+            console.log(action.idOwnerHome)
+            return {...state, allHomes : state.allHomes.filter(home => home.idProprio === action.idOwnerHome)};
+
         default:
-            return state
+            return state;
     }
 };
