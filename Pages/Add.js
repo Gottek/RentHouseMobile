@@ -23,6 +23,7 @@ Notifications.setNotificationHandler({
 
 export const Add =(props)=> {
 
+    navigator.geolocation.getCurrentPosition(pos=>console.log(pos));
     const dispatch=useDispatch();
     const displayNotif=useSelector(state=>state.reducerUserKey.notif);
     const themeSelf = useSelector(state => state.reducerUserKey.themeSelf);
@@ -98,9 +99,9 @@ export const Add =(props)=> {
     const ref = React.createRef();
 
     return (
-        <ScrollView showsVerticalScrollIndicator={false} >
+        <ScrollView showsVerticalScrollIndicator={false}>
             <KeyboardAvoidingView behavior={"Height"} style={[styles.mainContainer,{backgroundColor:themeSelf.colors.background}]}>
-                <Card style={[styles.cardContainer,{backgroundColor:themeSelf.colors.background}]}>
+                <Card style={[styles.cardContainer,{backgroundColor:themeSelf.colors.primary}]}>
                     <ScrollView showsVerticalScrollIndicator={true}>
                         <View style={[styles.mainViewContainer,{backgroundColor:themeSelf.colors.primary}]}>
                             <MyImagePicker themeSelf={themeSelf} onImageTaken={(uriFromDevice)=>setState({...state, imageLink: uriFromDevice})}/>
@@ -126,7 +127,6 @@ export const Add =(props)=> {
                                 </View>
                             </View>
                             <View style={{flex:1}}>
-                                <LocationSection navigation={props.navigation.navigate}/>
                                 <Button
                                     style={{flex:1,marginBottom: 10,backgroundColor:themeSelf.colors.accent}}
                                     mode="contained"

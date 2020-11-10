@@ -14,9 +14,9 @@ export default function Profile(props){
     const cuurentID=useSelector(state=>state.reducerUserKey.currentID);
     const themeSelf = useSelector(state => state.reducerUserKey.themeSelf);
 
-    const personArray=useSelector(state=>state.reducerUserKey.allClients);
+    // const personArray=useSelector(state=>state.reducerUserKey.allClients);
 
-    const person = personArray.find(p => p.idClient === cuurentID);
+    // const person = personArray.find(p => p.idClient === cuurentID);
 
     function LogOut(){
         console.log("salut tout le monde");
@@ -43,11 +43,11 @@ export default function Profile(props){
                 </View>
                 <View style={styles.containerNomPrenom}>
                     <View >
-                        <Text style={styles.containerPrenom}>{person?.name}</Text>
+                        {/*<Text style={styles.containerPrenom}>{person?.name}</Text>*/}
                     </View>
                     <View style={styles.containerNom}>
-                        <Text>{person?.surname}</Text>
-                        <Text>ID : {cuurentID}</Text>
+                        {/*<Text>{person?.surname}</Text>*/}
+                        {/*<Text>ID : {cuurentID}</Text>*/}
                     </View>
                 </View>
             </View>

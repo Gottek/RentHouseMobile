@@ -1,62 +1,41 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity} from "react-native";
-// import MapView, {Marker} from "react-native-maps";
+import React from 'react';
+import {Dimensions, StyleSheet, View} from "react-native";
+import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
 
-export const Maps = (props)=>{
-
-    const [location,setLocation]=useState();
-
-    const mapOrigin={
-        latitude:50.818104,
-        longitude:4.397081,
-        latitudeDelta:0.005,
-        longitudeDelta:0.02
-    }
-
-   const saveLocation=useCallback(()=>{
-       if(!location) return
-       props.navigation.navigate('Add',{posLocation:location})
-   },[location]);
-
-
-    useEffect(()=>{
-        props.navigation.setParams({locationSaved:saveLocation})
-    },[saveLocation])
-
-    const AddMaker =event=>{
-        setLocation({
-            latitude:event.nativeEvent.coordinate.latitude,
-            longitude:event.nativeEvent.coordinate.longitude
-        })
-    }
-    let coordMarker;
-
-    if(location) coordMarker={
-        latitude:location.latitude,
-        longitude:location.longitude
-    }
+export const Maps = (props) => {
 
     return (
-        <MapView  style={styles.map} region={mapOrigin} onPress={AddMaker}>
-            {coordMarker && <Marker title={"Endroit selectionné"} coordinate={coordMarker}/>}
-        </MapView>
+        <View style={styles.container}>
+            <MapView
+                provider={PROVIDER_GOOGLE}
+                style={styles.mapStyle}
+
+                region={{
+                    latitude: 50.7818643,
+                    longitude: 4.3181763,
+                    latitudeDelta: 0.04,
+                    longitudeDelta: 0.008,
+                }}>
+
+            </MapView>
+
+
+        </View>
     );
 }
-export const screenOptionMaps=(props)=>{
-    //const fonctionRappel=()=>{return (props.route.params.locationSaved)} //pourquoi ça ne marche pas ?
-    const fonctionRappel=()=>props.route.params.locationSaved() // et là ca marche
-    const feature ={
-        headerRight: () => (<TouchableOpacity style={{marginRight:20}} onPress={fonctionRappel}><Text style={styles.texto}>Save</Text></TouchableOpacity>)
-    }
-    return feature;
+export const screenOptionMaps = (props) => {
 }
 
 
-const styles=StyleSheet.create({
-    map:{
-        flex:1
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-    texto:{
-        color:"red"
-    }
-})
+    mapStyle: {
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+    },
+});
