@@ -1,28 +1,27 @@
 import * as React from 'react';
-import {Avatar, Button, Card, Title, Paragraph, Text} from 'react-native-paper';
-import {StyleSheet,View} from "react-native";
-import { AntDesign } from '@expo/vector-icons';
-import { Entypo } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import {Avatar, Card, Paragraph, Text, Title} from 'react-native-paper';
+import {StyleSheet, View} from "react-native";
+import {AntDesign} from '@expo/vector-icons';
 import Colors from "../Constants/Colors";
+import {useSelector} from "react-redux";
 
 const HomeCardView = (props) => {
 
     const [isClicked,setIsClicked]=React.useState('black');
 
     const LeftContent = () => <Avatar.Image size={50} source={require('../assets/Photos/PhotoProfileExample.webp')} />
-
-    const redirection =()=>props.navigation.navigate('HomeDetails', {name: "Détailles de la maison",idHome:props.idHome,autorisation:true})
+    const redirection =()=>props.navigation.navigate('HomeDetails', {name: "Détails de la maison",idHome:props.idHome,isAdmin:props.isAdmin})
+    const themeSelf = useSelector(state => state.reducerUserKey.themeSelf);
 
     return(
         <View>
-            <Card style={styles.cardStyle} onPress={redirection}>
+            <Card style={[styles.cardStyle,{backgroundColor:themeSelf.colors.primary}]} onPress={redirection}>
                 <Card.Title title={props.userName} subtitle={props.userDescription} left={LeftContent} />
                 <Card.Content>
                     <Title>{props.homeTitle}</Title>
                     <Paragraph style={{marginBottom: 20}}>prix: {props.homePrice}€ - chambre: {props.homeRoom}</Paragraph>
                 </Card.Content>
-                <Card.Cover source={{ uri: props.homeImage }} />
+                <Card.Cover source={{ uri: "https://i.ytimg.com/vi/cA2cYo86Kws/maxresdefault.jpg" }} />
                 <Card.Actions>
                     <View style={styles.heartIconsContainer}>
                         <View style={styles.heartContainer}>

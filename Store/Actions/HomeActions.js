@@ -40,4 +40,3 @@ export const deleteHomebyID = idHome => {
 export const selectOwnHome = ownHomes => {
     return dispatch => dispatch({type: SELECT_OWN_HOMES , idOwnerHome : ownHomes });
 }
-

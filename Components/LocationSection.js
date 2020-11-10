@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View,Image,Alert,ActivityIndicator} from "react-native";
-import * as Location from 'expo-location';
-import * as Permission from 'expo-permissions';
-import {getCurrentPositionAsync} from "expo-location";
+import {ActivityIndicator, StyleSheet, Text, View} from "react-native";
+import {getCurrentPositionAsync} from 'expo-location';
 
 
 export const LocationSection =(props)=> {
 
-    const [locationSelected, setLocationSelected] = useState();
+    // const [locationSelected, setLocationSelected] = useState();
     const [fetching, setFetching] = useState(false);
 
     const geolocalisation = async () => {
@@ -15,11 +13,11 @@ export const LocationSection =(props)=> {
         try {
             console.log("salut tout le monde");
             setFetching(true)
-            const currentLocation = await getCurrentPositionAsync({timeout: 5000})
+            /*const currentLocation = await getCurrentPositionAsync({timeout: 5000})
             setLocationSelected({
                 lat: currentLocation.coords.latitude,
                 lng: currentLocation.coords.longitude
-            });
+            });*/
 
         } catch (error) {
             alert("nous n'avons pas pu charger la map");

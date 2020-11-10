@@ -17,10 +17,10 @@ export const setCurrentUserID = userID => {
     return dispatch => dispatch({type: CURRENT_USER_ID , userIdKey : userID });
 }
 
-/*export const getAllMyClients = () => {
+export const getAllMyClients = () => {
     return async dispatch => {
-        const datas = getAllClient();
+        const datas = await getAllClient().then();
         dispatch({type: GET_ALL_CLIENTS , allClientsKEY : datas });
     }
-}*/
+}
 

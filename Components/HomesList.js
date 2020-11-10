@@ -1,25 +1,30 @@
 import React from 'react';
-import {FlatList, StyleSheet, View} from "react-native";
+import {FlatList, StyleSheet} from "react-native";
 import {useSelector} from "react-redux";
 import HomeCardView from "./HomeCardView";
 
 export const HomesList=({navigation})=>{
 
     const homesArray=useSelector(state=>state.reducerHomeKey.allHomes);
-    // console.log(homesArray);
+    const personArray=useSelector(state=>state.reducerUserKey.allClients);
+    const currentID = useSelector(state => state.reducerUserKey.currentID);
+
     const renderHome = Data => {
-        // console.log(Data.item.idProperty)
+        const person = personArray.find(p => p.idClient === Data.item.idProprio);
+
         return (
             <HomeCardView
                 idHome={Data.item.idProperty}
-                userName={"Jean-Jacque"}
-                userDescription={"1er du nom"}
+                idProprio={Data.item.idProprio}
+                userName={person?.name}
+                userDescription={person?.surname}
                 homeTitle={Data.item.description}
                 homePrice={Data.item.rentCost}
                 homeadress={Data.item.adress}
                 homeRoom={Data.item.type}
                 homeImage={Data.item.imageLink}
                 totalArea = {Data.item.totalArea}
+                isAdmin = {Data.item.idProprio===currentID}
                 fixedChargesCost = {Data.item.fixedChargesCost}
                 navigation={navigation}
             />

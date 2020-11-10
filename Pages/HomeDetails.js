@@ -1,8 +1,5 @@
-import {Dimensions, KeyboardAvoidingView, StyleSheet, Text, View} from "react-native";
-import React, {useEffect} from "react";
-import {HomesList} from "../Components/HomesList";
-import {Image} from "react-native";
-import {ScrollView} from "react-native";
+import {Dimensions, Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View} from "react-native";
+import React from "react";
 import {Button, Card} from "react-native-paper";
 import PersoInput from "../Components/PersoInput";
 import MyCheckBox from "../Components/MyCheckBox";
@@ -12,10 +9,15 @@ import {deleteHomebyID, updateOneHome} from "../Store/Actions/HomeActions";
 export default function HomeDetails (props){
 
     const dispatch=useDispatch();
-    const idHome=props.route.params?.idHome;
     //je parcours ma liste de maison à la rechercher de la maison qui porte le même id que la maison où j'ai cliqué
     const singleHome=useSelector(state=>state.reducerHomeKey.allHomes);
-    const isAdmin=props.route.params?.autorisation; // les droits d'accès
+    const themeSelf = useSelector(state => state.reducerUserKey.themeSelf);
+
+    const idHome=props.route.params?.idHome;
+    const isAdmin = props.route.params?.isAdmin;
+
+    console.log("isAdmin : ",isAdmin);
+
     const { height } = Dimensions.get('window');
 
     const [state, setState] = React.useState({
@@ -25,7 +27,7 @@ export default function HomeDetails (props){
         isCurrentlyRented:false,
     });
 
-    React.useEffect (() => {
+    React.useEffect(() => {
 
         const onvaAttendre = async () => {
             const selectorHome = await singleHome.find(home=>home.idProperty===idHome);
@@ -40,29 +42,21 @@ export default function HomeDetails (props){
         await dispatch( updateOneHome(state));
         props.navigation.goBack();
     }
-     function deletePost(){
+     async function deletePost(){
         //requete vers le store
+         await dispatch( deleteHomebyID(state.idProperty));
          props.navigation.goBack();
-         console.log("ok");
-         dispatch( deleteHomebyID(state.idProperty));
-    }
-
-    /*const handleChange = (text,name) => {
-        console.log(name+" -> "+text);
-        setState({[name]: text});
-    }*/
+     }
 
     const handleChangeIsRented = () => {
         setState( {...state, isCurrentlyRented: !state.isCurrentlyRented} );
-        console.log(state.isCurrentlyRented);
     }
 
-
     return(
-        <KeyboardAvoidingView  behavior={"Height"} style={styles.mainContainer}>
+        <KeyboardAvoidingView behavior={"Height"} style={[styles.mainContainer,{backgroundColor:themeSelf.colors.background}]}>
             <Card style={styles.cardContainer}>
                 <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{height:height+height/3}}>
-                    <View style={styles.mainViewContainer}>
+                    <View style={[styles.mainViewContainer,{backgroundColor:themeSelf.colors.primary}]}>
                         <View>
                             <Image style={styles.imageStyle} source={{ uri: 'https://picsum.photos/700' }}/>
                         </View>
@@ -84,10 +78,16 @@ export default function HomeDetails (props){
                                 <Text>Actuellement loué ?</Text>
                             </View>
                         </View>
-                        {isAdmin && <View style={styles.ButtonStyle}>
-                            <Button style={{marginBottom: 10}} mode="contained" color="#8e44ad" onPress={updatePost}>Modifier</Button>
-                            <Button style={{marginBottom: 10}} mode="contained" color="#8e44ad" onPress={deletePost}>Supprimer</Button>
-                        </View>}
+                        {isAdmin ?
+                            <View style={styles.ButtonStyle}>
+                                <Button style={{marginBottom: 10}} mode="contained" color={themeSelf.colors.accent} onPress={updatePost}>Modifier</Button>
+                                <Button style={{marginBottom: 10}} mode="contained" color={themeSelf.colors.accent} onPress={deletePost}>Supprimer</Button>
+                            </View>
+                            :
+                            <View style={styles.ButtonStyle}>
+                                <Button style={{flex:2}} mode="contained" color={themeSelf.colors.accent} onPress={()=>console.log(" OKOK")}>Demander un devis</Button>
+                            </View>
+                        }
                     </View>
                 </ScrollView>
             </Card>
@@ -96,7 +96,6 @@ export default function HomeDetails (props){
 }
 export const screenOptionHomeDetails=(props)=> {
     {
-        // console.log(props.route.params);
         const screenName=props.route.params?.name;
         return {headerTitle: () => <Text style={styles.texto}>{screenName}</Text>}
     }

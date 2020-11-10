@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { Switch } from 'react-native-paper';
+import {Switch} from 'react-native-paper';
 import Colors from "../Constants/Colors";
-import {useDispatch} from "react-redux";
-import {selectOwnHome} from "../Store/Actions/HomeActions"
 
 const MySwitch = (props) => {
 

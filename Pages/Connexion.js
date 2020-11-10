@@ -1,22 +1,18 @@
 import PersoInput from "../Components/PersoInput";
-import {StyleSheet, View} from "react-native";
-import React, {useState} from "react";
-import {Button, TextInput} from 'react-native-paper';
+import {Keyboard, StyleSheet, TouchableWithoutFeedback, View} from "react-native";
+import React from "react";
+import {Button} from 'react-native-paper';
 import Colors from "../Constants/Colors";
-import {TouchableWithoutFeedback, Keyboard} from "react-native";
-import {useDispatch, useSelector} from "react-redux";
-import { CommonActions } from '@react-navigation/native';
-import {getAllClient, getAllProperties} from "../Api/api";
-import {getAllHomes} from "../Store/Actions/HomeActions";
+import {useDispatch} from "react-redux";
 import Home from "../Models/Home";
-import {setCurrentUserID} from "../Store/Actions/UsersActions";
+import {getAllMyClients, setCurrentUserID} from "../Store/Actions/UsersActions";
 
 export default function ProfilesPage(props){
 
 
     const dispatch = useDispatch();
 
-    const [idcurrentUser, setidcurrentUser] = React.useState(0);
+    const [idcurrentUser, setidcurrentUser] = React.useState(-1);
     const [inputsOK, setInputsOK] = React.useState(false);
     const [allClients,setAllClients] = React.useState({});
     const [userInput,setUserInput] = React.useState({
@@ -27,8 +23,8 @@ export default function ProfilesPage(props){
     React.useEffect(() => {
 
         const fetchData = async () => {
-            const allcli = await getAllClient();
-            setAllClients(allcli);
+            // const allcli = await getAllMyClients();
+            setAllClients(await getAllMyClients());
         }
         fetchData().then("fetch OK").catch(err => console.log(err));
     },[]);
@@ -36,8 +32,7 @@ export default function ProfilesPage(props){
     async function checkUserInput(){
         await checkUserData();
         if(inputsOK){
-            dispatch( getAllHomes() )
-            dispatch( setCurrentUserID(idcurrentUser) )
+            await dispatch( setCurrentUserID(idcurrentUser) )
             props.navigation.replace('Home');
         }
         else{

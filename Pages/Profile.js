@@ -5,16 +5,22 @@ import {Button, Divider} from 'react-native-paper';
 import Colors from "../Constants/Colors";
 import {getAllHomes, selectOwnHome} from "../Store/Actions/HomeActions";
 import {useDispatch, useSelector} from "react-redux";
-import {activeNotif} from "../Store/Actions/UsersActions";
+import {activeDarkTheme, activeNotif} from "../Store/Actions/UsersActions";
 
 
 export default function Profile(props){
 
     const dispatch=useDispatch();
     const cuurentID=useSelector(state=>state.reducerUserKey.currentID);
+    const themeSelf = useSelector(state => state.reducerUserKey.themeSelf);
+
+    const personArray=useSelector(state=>state.reducerUserKey.allClients);
+
+    const person = personArray.find(p => p.idClient === cuurentID);
 
     function LogOut(){
         console.log("salut tout le monde");
+        props.navigation.navigate('Connexion');
     }
 
     const ownHomesActive = (valeur) => {
@@ -24,27 +30,31 @@ export default function Profile(props){
         dispatch(activeNotif(valeur));
     }
 
+    const ActiveDarkTheme = (valeur) => {
+        dispatch(activeDarkTheme(valeur));
+    }
+
     return(
-        <View style={styles.container}>
-            <View style={styles.containerHeader}>
+        <View style={[styles.container,{backgroundColor:themeSelf.colors.background}]}>
+            <View style={[styles.containerHeader,{backgroundColor:themeSelf.colors.primary}]}>
                 <View style={styles.containerImage}>
                     <Image source={require('../assets/Photos/PhotoProfileExample.webp')}
                            style={{width: 150, height: 150, borderRadius: 150/ 2}} />
                 </View>
                 <View style={styles.containerNomPrenom}>
                     <View >
-                        <Text style={styles.containerPrenom}>Jean-Jacque</Text>
+                        <Text style={styles.containerPrenom}>{person?.name}</Text>
                     </View>
                     <View style={styles.containerNom}>
-                        <Text>1er du nom</Text>
+                        <Text>{person?.surname}</Text>
                         <Text>ID : {cuurentID}</Text>
                     </View>
                 </View>
             </View>
-            <View style={styles.containerSecondaire}>
+            <View style={[styles.containerSecondaire,{backgroundColor:themeSelf.colors.primary}]}>
                 <SectionProfile text="Notifactions" onClick={notifActive} default={true} />
                 <Divider/>
-                <SectionProfile text="Theme sombre" onClick={() => console.log("ok DARKTHEME")} default={false}/>
+                <SectionProfile text="Theme sombre" onClick={ActiveDarkTheme} default={true}/>
                 <Divider/>
                 <SectionProfile text="Tri Activé" onClick={ownHomesActive} default={false}/>
                 <Divider/>
@@ -53,10 +63,10 @@ export default function Profile(props){
             </View>
         </View>
     );
-
 }
 
 const styles = StyleSheet.create({
+
     container: {
         padding:30,
         flex:1,
@@ -64,7 +74,6 @@ const styles = StyleSheet.create({
     containerHeader:{
         flexDirection:"row",
         alignItems:"center",
-        backgroundColor:"#fff",
         padding:5,
         borderRadius:10,
         elevation:3
@@ -86,7 +95,6 @@ const styles = StyleSheet.create({
     containerSecondaire:{
         flex:1,
         marginTop:10,
-        backgroundColor:"#fff",
         borderRadius:10,
         padding:10,
         elevation:3

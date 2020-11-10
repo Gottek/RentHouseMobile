@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { TextInput } from 'react-native-paper';
-import createCSSStyleSheet from "react-native-web/dist/exports/StyleSheet/createCSSStyleSheet";
-import {ScrollView, StyleSheet} from "react-native";
+import {TextInput} from 'react-native-paper';
+import {StyleSheet} from "react-native";
 
 const PersoInput = ({texto,getText,valeur,disabled,name}) => {
 

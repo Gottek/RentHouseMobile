@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Button, Text, StyleSheet, Image} from "react-native";
+import {Button, Image, StyleSheet, View} from "react-native";
 import * as ImagePicker from 'expo-image-picker'
 import Colors from "../Constants/Colors";
 
@@ -18,10 +18,12 @@ export default function MyImagePicker(props){
   return(
       <View style={styles.mainContainer}>
           <View style={styles.imagePreview}>
-              {!imagePath?<Image source={require('../assets/Photos/CameraPicture.jpg')} style={styles.imageDimension}/>
-                  :<Image style={styles.imageDimension} source={{uri:imagePath}}/>}
+              {!imagePath?
+                  <Image source={require('../assets/Photos/CameraPicture.jpg')} style={styles.imageDimension}/>
+                  :
+                  <Image style={styles.imageDimension} source={{uri:imagePath}}/>}
           </View>
-          <Button mode='outlined' color={Colors.purpleStyle} onPress={takeImage} title={"Choisir une image"}/>
+          <Button mode='outlined' color={props.themeSelf.colors.accent} onPress={takeImage} title={"Choisir une image"}/>
       </View>
   );
 };

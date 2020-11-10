@@ -1,7 +1,5 @@
-import {combineReducers} from "redux";
-import {ADD_HOME, DELETE_HOME_BY_ID, GET_ALL_HOMES, UPDATE_HOME_BY_ID,SELECT_OWN_HOMES} from "../Actions/HomeActions";
+import {ADD_HOME, DELETE_HOME_BY_ID, GET_ALL_HOMES, SELECT_OWN_HOMES, UPDATE_HOME_BY_ID} from "../Actions/HomeActions";
 import Home from "../../Models/Home";
-import {handleOnSubmit} from "../../Api/api";
 
 const initialState ={
     allHomes : []
@@ -40,10 +38,7 @@ export const HomeReducer =(state=initialState, action)=>{
         case GET_ALL_HOMES:
 
             const tableau = action.getAllHomesVar;
-            let letAllHomes=tableau.map( (object, index) => {
-
-                // console.log(" OBJECT OK ")
-                // console.log(object),
+            let letAllHomes=tableau.map((object, index) => {
                 return(newHome = new Home(
                     object.idProperty,
                     object.description,
@@ -54,10 +49,8 @@ export const HomeReducer =(state=initialState, action)=>{
                     object.totalArea,
                     object.imageLink,
                     object.idProprio
-                ))
-
-            })
-
+                ));
+            });
             return {...state, allHomes: letAllHomes};
         case UPDATE_HOME_BY_ID:
 

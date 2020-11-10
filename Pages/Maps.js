@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {StyleSheet, Text, View,Image,Button, TouchableOpacity} from "react-native";
-import MapView,{Marker} from "react-native-maps";
+import {StyleSheet, Text, TouchableOpacity} from "react-native";
+// import MapView, {Marker} from "react-native-maps";
 
 export const Maps = (props)=>{
 
