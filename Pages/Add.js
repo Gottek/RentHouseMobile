@@ -28,7 +28,7 @@ export const Add =(props)=> {
     const themeSelf = useSelector(state => state.reducerUserKey.themeSelf);
     const currentID = useSelector(state => state.reducerUserKey.currentID);
 
-    const [notification, setNotification] = useState(false);
+    /*const [notification, setNotification] = useState(false);
     const notificationListener = useRef();
     const responseListener = useRef();
 
@@ -46,7 +46,7 @@ export const Add =(props)=> {
             Notifications.removeNotificationSubscription(notificationListener);
             Notifications.removeNotificationSubscription(responseListener);
         };
-    }, []);
+    }, []);*/
 
     const [userLocation,setUserLocation] = useState(null);
 
