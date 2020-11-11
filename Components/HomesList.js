@@ -2,6 +2,7 @@ import React from 'react';
 import {FlatList, StyleSheet} from "react-native";
 import {useSelector} from "react-redux";
 import HomeCardView from "./HomeCardView";
+import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 export const HomesList=({navigation})=>{
 
@@ -43,6 +44,6 @@ export const HomesList=({navigation})=>{
 
 const styles = StyleSheet.create({
     MainContainer: {
-        padding:30,
+        padding:hp('3%'),
     }
 });

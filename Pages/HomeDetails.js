@@ -5,6 +5,8 @@ import PersoInput from "../Components/PersoInput";
 import MyCheckBox from "../Components/MyCheckBox";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteHomebyID, updateOneHome} from "../Store/Actions/HomeActions";
+import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
+
 
 export default function HomeDetails (props){
 
@@ -106,8 +108,8 @@ export const screenOptionHomeDetails=(props)=> {
 
 const styles = StyleSheet.create({
     mainContainer: {
-        paddingTop:20,
-        paddingHorizontal:20,
+        paddingTop:hp('2%'),
+        paddingHorizontal:hp('2%'),
         flex:1,
         justifyContent:"center"
     },
@@ -127,7 +129,7 @@ const styles = StyleSheet.create({
         alignItems:"center",
         justifyContent:"space-around",
         flexDirection:"row",
-        marginBottom:10,
+        marginBottom:hp('1%'),
         flex:1
 
     },
@@ -140,15 +142,15 @@ const styles = StyleSheet.create({
         alignItems:"center"
     },
     cardContainer:{
-        padding:10,
-        marginBottom:10,
+        padding:hp('1%'),
+        marginBottom:hp('1%'),
         elevation:5
     },
     imageStyle:{
-        width: '100%',
+        width: wp('100%'),
         height: undefined,
         aspectRatio: 1,
-        borderRadius:10,
+        borderRadius:hp('1%'),
     },
     ButtonStyle:{
         flexDirection:"row",
