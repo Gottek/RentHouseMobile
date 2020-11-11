@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {ActivityIndicator, StyleSheet, Text, View} from "react-native";
 import {getCurrentPositionAsync} from 'expo-location';
+import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 
 export const LocationSection =(props)=> {
@@ -40,7 +41,7 @@ const styles=StyleSheet.create({
         borderColor:"black",
         borderStyle:"dashed",
         borderRadius: 7,
-        marginBottom:10
+        marginBottom:hp('1%')
     }
 
 });

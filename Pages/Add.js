@@ -10,6 +10,7 @@ import {addHome} from "../Store/Actions/HomeActions";
 import * as Notifications from 'expo-notifications';
 import {useDispatch, useSelector} from "react-redux";
 import MyImagePicker from "../Components/MyImagePicker";
+import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 
 Notifications.setNotificationHandler({
@@ -23,7 +24,6 @@ Notifications.setNotificationHandler({
 
 export const Add =(props)=> {
 
-    navigator.geolocation.getCurrentPosition(pos=>console.log(pos));
     const dispatch=useDispatch();
     const displayNotif=useSelector(state=>state.reducerUserKey.notif);
     const themeSelf = useSelector(state => state.reducerUserKey.themeSelf);
@@ -62,13 +62,17 @@ export const Add =(props)=> {
         imageLink:"",
         isCurrentlyRented:false,
         idProprio:currentID, //Propriétaire par défaut a changer
+        longitude:0.0,
+        latitude:0.0,
     }
 
     const [state,setState] = React.useState(stateDefaultValues);
 
 
     async function sendToHome(){
-
+        navigator.geolocation.getCurrentPosition(pos=>{
+            setState({...state,latitude:pos.coords.latitude,longitude:pos.coords.longitude})
+        });
         displayNotif ? await schedulePushNotification():'';
         dispatch(addHome(state))
         clean();
@@ -87,13 +91,14 @@ export const Add =(props)=> {
         <Picker
             ref={ref}
             selectedValue={state.type}
-            style={{height: 50, width: 100}}
+            style={{height: hp('5%'), width: wp('40%'),color:themeSelf.colors.textColor}}
+            itemStyle={{backgroundColor:'red',color:'red'}}
             onValueChange={(itemValue, itemIndex) =>
                 setState({...state, type: itemValue})
             }>
-            <Picker.Item label="Maison" value="house" />
-            <Picker.Item label="Appart" value="flat" />
-            <Picker.Item label="Chambre" value="room" />
+            <Picker.Item  label="Maison" value="house" />
+            <Picker.Item  label="Appart" value="flat" />
+            <Picker.Item  label="Chambre" value="room" />
         </Picker>
     ));
     const ref = React.createRef();
@@ -114,21 +119,23 @@ export const Add =(props)=> {
                             <View style={styles.prixChambreContainer}>
 
                                 <PersoInput texto={"Prix"} getText={(text)=>setState({...state, rentCost: text})} valeur={state.rentCost.toString()}/>
-                                <ListeTypes ref={ref} />
 
                             </View>
                             <View style={styles.checkBoxContainer}>
                                 <PersoInput texto={"Aire Totale"} getText={(text)=>setState({...state, totalArea: text})} valeur={state.totalArea.toString()}/>
                                 <PersoInput texto={"Charges fixes"} getText={(text)=>setState({...state, fixedChargesCost: text})} valeur={state.fixedChargesCost.toString()}/>
 
+                            </View>
+                            <View style={{flex:1, alignItems:'center',flexDirection:'row', marginBottom:hp('3%')}}>
+                                <ListeTypes ref={ref} />
                                 <View style={styles.textCheck}>
                                     <MyCheckBox getChecked={(text)=>setState({...state, isCurrentlyRented:text})} valeur={state.isCurrentlyRented}/>
-                                    <Text>Actuellement loué ?</Text>
+                                    <Text style={{color:themeSelf.colors.textColor}}>Actuellement loué ?</Text>
                                 </View>
                             </View>
                             <View style={{flex:1}}>
                                 <Button
-                                    style={{flex:1,marginBottom: 10,backgroundColor:themeSelf.colors.accent}}
+                                    style={{flex:1,marginBottom: hp('1%'),backgroundColor:themeSelf.colors.accent}}
                                     mode="contained"
                                     color={themeSelf.colors.accent}
                                     onPress={sendToHome}>Poster
@@ -155,12 +162,13 @@ async function schedulePushNotification() {
 
 const styles = StyleSheet.create({
     mainContainer: {
-        paddingTop:20,
-        paddingHorizontal:20,
+        paddingTop:hp('2%'),
+        paddingHorizontal:hp('2%'),
         flex:1,
         justifyContent:"center"
     },
     prixChambreContainer:{
+        marginBottom:hp('3%'),
         alignItems:"center",
         flex:1,
         flexDirection:"row"
@@ -174,7 +182,7 @@ const styles = StyleSheet.create({
         alignItems:"center",
         justifyContent:"space-around",
         flexDirection:"row",
-        marginBottom:10,
+        marginBottom:hp('4%'),
         flex:1
 
     },
@@ -183,12 +191,13 @@ const styles = StyleSheet.create({
     },
     homeName:{
         flex:1,
+        marginBottom:hp('3%'),
         flexDirection:"row",
         alignItems:"center"
     },
     cardContainer:{
-        padding:10,
-        marginBottom:10,
+        padding:hp('1%'),
+        marginBottom:hp('1%'),
         elevation:5
     }
 });

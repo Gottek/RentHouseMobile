@@ -4,6 +4,7 @@ import {StyleSheet, View} from "react-native";
 import {AntDesign} from '@expo/vector-icons';
 import Colors from "../Constants/Colors";
 import {useSelector} from "react-redux";
+import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 const HomeCardView = (props) => {
 
@@ -19,7 +20,7 @@ const HomeCardView = (props) => {
                 <Card.Title title={props.userName} subtitle={props.userDescription} left={LeftContent} />
                 <Card.Content>
                     <Title>{props.homeTitle}</Title>
-                    <Paragraph style={{marginBottom: 20}}>prix: {props.homePrice}€ - chambre: {props.homeRoom}</Paragraph>
+                    <Paragraph style={{marginBottom: hp('2%')}}>prix: {props.homePrice}€ - chambre: {props.homeRoom}</Paragraph>
                 </Card.Content>
                 <Card.Cover source={{ uri: "https://i.ytimg.com/vi/cA2cYo86Kws/maxresdefault.jpg" }} />
                 <Card.Actions>
@@ -42,9 +43,9 @@ const HomeCardView = (props) => {
 
 const styles = StyleSheet.create({
     cardStyle:{
-        marginBottom:30,
+        marginBottom:hp('3%'),
         elevation:5,
-        marginHorizontal:5
+        marginHorizontal:hp('0.5%')
     },
     iconContainer:{
         flex:3,

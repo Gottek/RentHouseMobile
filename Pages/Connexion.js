@@ -6,6 +6,7 @@ import Colors from "../Constants/Colors";
 import {useDispatch} from "react-redux";
 import Home from "../Models/Home";
 import {getAllMyClients, setCurrentUserID} from "../Store/Actions/UsersActions";
+import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 export default function ProfilesPage(props){
 
@@ -93,7 +94,7 @@ export default function ProfilesPage(props){
 
 const styles = StyleSheet.create({
     container: {
-        padding:30,
+        padding:hp('3%'),
         flex:1,
         justifyContent:'space-around'
     }

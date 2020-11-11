@@ -2,20 +2,23 @@ import {DefaultTheme} from "@react-navigation/native";
 
 export const themeDark = {
     ...DefaultTheme,
-    dark:true,
+    dark: true,
     colors: {
         ...DefaultTheme.colors,
-        primary: '#414141',
-        accent: '#382039',
-        background : '#313131'
+        primary: '#57606f',
+        accent: '#003489',
+        background: '#2d3436',
+        textColor: '#fff' // to do
     },
 };
 export const themeLight = {
     ...DefaultTheme,
     colors: {
         ...DefaultTheme.colors,
-        primary: '#aaa',
+        primary: '#fff',
         accent: '#9900ff',
-        background : '#ccc'
+        background: '#ccc',
+        textColor: 'black'
+
     },
 };

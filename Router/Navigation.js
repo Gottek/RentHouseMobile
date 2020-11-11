@@ -12,10 +12,15 @@ import HomeDetails, {screenOptionHomeDetails} from "../Pages/HomeDetails";
 import {useSelector} from "react-redux";
 
 const Stack = createStackNavigator();
-export const StackNavigator=()=>{
-    return(
-        <Stack.Navigator initialRouteName="Home" screenOptions={{ headerTitleAlign:"center" }}>
-            <Stack.Screen name="Home" component={TabsNavigator}  options={({ route }) => ({
+export const StackNavigator = () => {
+    const themeSelf = useSelector(state => state.reducerUserKey.themeSelf);
+
+    return (
+        <Stack.Navigator initialRouteName="Home" screenOptions={{
+            headerTitleAlign: "center",
+            headerStyle: {backgroundColor: themeSelf.colors.accent},headerTintColor: 'white'
+        }}>
+            <Stack.Screen name="Home" component={TabsNavigator} options={({route}) => ({
                 headerTitle: getHeaderTitle(route),
             })}/>
             <Stack.Screen name="Connexion" component={Connexion}/>
@@ -25,29 +30,32 @@ export const StackNavigator=()=>{
     );
 }
 const Tab = createMaterialBottomTabNavigator();
-export const TabsNavigator=()=>{
+export const TabsNavigator = () => {
     const themeSelf = useSelector(state => state.reducerUserKey.themeSelf);
-   return(
-       <Tab.Navigator initialRouteName="Home" activeColor="#fff" shifting="true" inactiveColor="black" barStyle={{ backgroundColor: themeSelf.colors.accent}}>
-        <Tab.Screen name="Profile" component={Profile}
-                    options={{
-                        tabBarIcon:(tabinfo)=> <FontAwesome name="user" size={24} color={tabinfo.color} />
-                    }}
-        />
-        <Tab.Screen name="Home"
-                    component={Home}
-                    options={{
-                        tabBarIcon:(tabinfo)=> <FontAwesome5 name="home" size={24} color={tabinfo.color} />
-                    }}
-        />
-        <Tab.Screen name="Add" component={Add}
-                    options={{
-                        tabBarIcon:(tabinfo)=> <MaterialCommunityIcons name="image-plus" size={24} color={tabinfo.color} />
-                    }}
-        />
-    </Tab.Navigator>
-   );
+    return (
+        <Tab.Navigator initialRouteName="Home" activeColor="#fff" shifting="true" inactiveColor="black"
+                       barStyle={{backgroundColor: themeSelf.colors.accent}}>
+            <Tab.Screen name="Profile" component={Profile}
+                        options={{
+                            tabBarIcon: (tabinfo) => <FontAwesome name="user" size={24} color={tabinfo.color}/>
+                        }}
+            />
+            <Tab.Screen name="Home"
+                        component={Home}
+                        options={{
+                            tabBarIcon: (tabinfo) => <FontAwesome5 name="home" size={24} color={tabinfo.color}/>
+                        }}
+            />
+            <Tab.Screen name="Add" component={Add}
+                        options={{
+                            tabBarIcon: (tabinfo) => <MaterialCommunityIcons name="image-plus" size={24}
+                                                                             color={tabinfo.color}/>
+                        }}
+            />
+        </Tab.Navigator>
+    );
 }
+
 function getHeaderTitle(route) {
     const routeName = getFocusedRouteNameFromRoute(route) ?? 'Add';
 

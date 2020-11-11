@@ -1,24 +1,31 @@
-import React from 'react';
-import {StyleSheet, Text, View,Image} from "react-native";
+import React, {useEffect} from 'react';
+import {Image, StyleSheet, View} from "react-native";
 import {SectionProfile} from "../Components/SectionProfile";
 import {Button, Divider} from 'react-native-paper';
-import Colors from "../Constants/Colors";
 import {getAllHomes, selectOwnHome} from "../Store/Actions/HomeActions";
 import {useDispatch, useSelector} from "react-redux";
 import {activeDarkTheme, activeNotif} from "../Store/Actions/UsersActions";
+import {
+    heightPercentageToDP as hp,
+    listenOrientationChange as lor,
+    widthPercentageToDP as wp
+} from 'react-native-responsive-screen';
 
 
-export default function Profile(props){
+export default function Profile(props) {
 
-    const dispatch=useDispatch();
-    const cuurentID=useSelector(state=>state.reducerUserKey.currentID);
+    const dispatch = useDispatch();
+    const cuurentID = useSelector(state => state.reducerUserKey.currentID);
     const themeSelf = useSelector(state => state.reducerUserKey.themeSelf);
 
+    useEffect(() => {
+        lor(this)
+    })
     // const personArray=useSelector(state=>state.reducerUserKey.allClients);
 
     // const person = personArray.find(p => p.idClient === cuurentID);
 
-    function LogOut(){
+    function LogOut() {
         console.log("salut tout le monde");
         props.navigation.navigate('Connexion');
     }
@@ -34,15 +41,15 @@ export default function Profile(props){
         dispatch(activeDarkTheme(valeur));
     }
 
-    return(
-        <View style={[styles.container,{backgroundColor:themeSelf.colors.background}]}>
-            <View style={[styles.containerHeader,{backgroundColor:themeSelf.colors.primary}]}>
+    return (
+        <View style={[styles.container, {backgroundColor: themeSelf.colors.background}]}>
+            <View style={[styles.containerHeader, {backgroundColor: themeSelf.colors.primary}]}>
                 <View style={styles.containerImage}>
                     <Image source={require('../assets/Photos/PhotoProfileExample.webp')}
-                           style={{width: 150, height: 150, borderRadius: 150/ 2}} />
+                           style={{width: wp('38%'), height: hp('20%'), borderRadius: hp('20%') / 2}}/>
                 </View>
                 <View style={styles.containerNomPrenom}>
-                    <View >
+                    <View>
                         {/*<Text style={styles.containerPrenom}>{person?.name}</Text>*/}
                     </View>
                     <View style={styles.containerNom}>
@@ -51,14 +58,14 @@ export default function Profile(props){
                     </View>
                 </View>
             </View>
-            <View style={[styles.containerSecondaire,{backgroundColor:themeSelf.colors.primary}]}>
-                <SectionProfile text="Notifactions" onClick={notifActive} default={true} />
+            <View style={[styles.containerSecondaire, {backgroundColor: themeSelf.colors.primary}]}>
+                <SectionProfile text="Notifactions" onClick={notifActive} default={true}/>
                 <Divider/>
                 <SectionProfile text="Theme sombre" onClick={ActiveDarkTheme} default={true}/>
                 <Divider/>
                 <SectionProfile text="Tri Activé" onClick={ownHomesActive} default={false}/>
                 <Divider/>
-                <Button mode='outlined' color={Colors.purpleStyle} onPress={LogOut}>Log out</Button>
+                <Button mode='contained' color={themeSelf.colors.accent} onPress={LogOut}>Log out</Button>
 
             </View>
         </View>
@@ -68,35 +75,34 @@ export default function Profile(props){
 const styles = StyleSheet.create({
 
     container: {
-        padding:30,
-        flex:1,
+        padding: hp('3%'),
+        flex: 1,
     },
-    containerHeader:{
-        flexDirection:"row",
-        alignItems:"center",
-        padding:5,
-        borderRadius:10,
-        elevation:3
-    },
-    containerImage:{
-        alignItems:"center",
-        flex:1
-    },
-    containerNom:{
-    },
-    containerPrenom:{
-        fontWeight: '400',
-        fontSize:20
-    },
-    containerNomPrenom:{
+    containerHeader: {
+        flexDirection: "row",
         alignItems: "center",
-        flex:1
+        padding: hp('0.5%'),
+        borderRadius: hp('1%'),
+        elevation: 3
     },
-    containerSecondaire:{
-        flex:1,
-        marginTop:10,
-        borderRadius:10,
-        padding:10,
-        elevation:3
+    containerImage: {
+        alignItems: "center",
+        flex: 1
+    },
+    containerNom: {},
+    containerPrenom: {
+        fontWeight: '400',
+        fontSize: 20
+    },
+    containerNomPrenom: {
+        alignItems: "center",
+        flex: 1
+    },
+    containerSecondaire: {
+        flex: 1,
+        marginTop: hp('1%'),
+        borderRadius: hp('1%'),
+        padding: hp('1%'),
+        elevation: 3
     }
 });
