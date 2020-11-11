@@ -1,41 +1,31 @@
 import React from 'react';
-import {Dimensions, StyleSheet, View} from "react-native";
 import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
-
+// import { MapView } from 'expo';
 export const Maps = (props) => {
 
+    const nvlleLat = props.latitude!==0?props.latitude:50.81950043121481;
+    const nvlleLong = props.longitude!==0?props.longitude:4.394311459132513;
+
+    const myMap = {
+        latitude: nvlleLat,
+        longitude: nvlleLong,
+        latitudeDelta: 0.025,
+        longitudeDelta: 0.04
+    }
+    const [mapRegion,setMapRegion] = React.useState(myMap);
+
+    console.log("myMap")
+    console.log(myMap)
+    const handleRegionChange = region => {
+        setMapRegion(region)
+    }
     return (
-        <View style={styles.container}>
             <MapView
+                showsUserLocation={true}
                 provider={PROVIDER_GOOGLE}
-                style={styles.mapStyle}
-
-                region={{
-                    latitude: 50.7818643,
-                    longitude: 4.3181763,
-                    latitudeDelta: 0.04,
-                    longitudeDelta: 0.008,
-                }}>
-
-            </MapView>
-
-
-        </View>
+                style={{flex:1}}
+                region={mapRegion}
+                onRegionChange={handleRegionChange}
+            />
     );
 }
-export const screenOptionMaps = (props) => {
-}
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    mapStyle: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
-    },
-});

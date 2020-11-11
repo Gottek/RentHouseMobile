@@ -11,6 +11,9 @@ class Home{
         totalArea,
         imageLink,
         idProprio,
+
+        longitude,
+        latitude,
         ){
         
         // this.name=name;
@@ -24,6 +27,8 @@ class Home{
         this.totalArea=totalArea;
         this.imageLink=imageLink;
         this.idProprio=idProprio;
+        this.longitude=longitude;
+        this.latitude=latitude;
     }
 }
 export default Home;

@@ -11,6 +11,7 @@ export const HomeReducer =(state=initialState, action)=>{
         case ADD_HOME:
             // const name= object.newHome.name;
             const homeAdd = action.newHome;
+
             const description= homeAdd.description;
             const rentCost= homeAdd.rentCost;
             const adress= homeAdd.adress;
@@ -19,6 +20,8 @@ export const HomeReducer =(state=initialState, action)=>{
             const totalArea= homeAdd.totalArea;
             const imageLink= homeAdd.imageLink;
             const idProprio= homeAdd.idProprio;
+            const longitude= homeAdd.longitude;
+            const latitude= homeAdd.latitude;
 
             let newHome = new Home(
                 null,
@@ -29,7 +32,9 @@ export const HomeReducer =(state=initialState, action)=>{
                 fixedChargesCost, 
                 totalArea, 
                 imageLink,
-                idProprio
+                idProprio,
+                longitude,
+                latitude,
             );
 
             let updateAllHome= [...state.allHomes,newHome];
@@ -48,7 +53,9 @@ export const HomeReducer =(state=initialState, action)=>{
                     object.fixedChargesCost,
                     object.totalArea,
                     object.imageLink,
-                    object.idProprio
+                    object.idProprio,
+                    object.longitude,
+                    object.latitude,
                 ));
             });
             return {...state, allHomes: letAllHomes};
@@ -68,6 +75,8 @@ export const HomeReducer =(state=initialState, action)=>{
                 action.updateHomeVar.totalArea,
                 action.updateHomeVar.imageLink,
                 action.updateHomeVar.idProprio,
+                action.updateHomeVar.longitude,
+                action.updateHomeVar.latitude,
             );
 
             const updatedAllHomes = [...state.allHomes];

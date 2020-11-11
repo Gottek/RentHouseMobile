@@ -23,7 +23,7 @@ export const HomesList=({navigation})=>{
                 homePrice={Data.item.rentCost}
                 homeadress={Data.item.adress}
                 homeRoom={Data.item.type}
-                homeImage={Data.item.imageLink}
+                imageLink={Data.item.imageLink}
                 totalArea = {Data.item.totalArea}
                 isAdmin = {Data.item.idProprio===currentID}
                 fixedChargesCost = {Data.item.fixedChargesCost}

@@ -70,9 +70,13 @@ export const Add =(props)=> {
 
 
     async function sendToHome(){
-        navigator.geolocation.getCurrentPosition(pos=>{
-            setState({...state,latitude:pos.coords.latitude,longitude:pos.coords.longitude})
+        await navigator.geolocation.getCurrentPosition(async pos=>{
+            await setState({...state,latitude:pos.coords.latitude,longitude:pos.coords.longitude})
+            await redirect();
+            console.log(state);
         });
+    }
+    const redirect = async() => {
         displayNotif ? await schedulePushNotification():'';
         dispatch(addHome(state))
         clean();

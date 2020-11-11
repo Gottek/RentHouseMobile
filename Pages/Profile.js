@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Image, StyleSheet, View} from "react-native";
+import {Dimensions, Image, ScrollView, StyleSheet, Text, View} from "react-native";
 import {SectionProfile} from "../Components/SectionProfile";
 import {Button, Divider} from 'react-native-paper';
 import {getAllHomes, selectOwnHome} from "../Store/Actions/HomeActions";
@@ -21,9 +21,9 @@ export default function Profile(props) {
     useEffect(() => {
         lor(this)
     })
-    // const personArray=useSelector(state=>state.reducerUserKey.allClients);
+    const personArray=useSelector(state=>state.reducerUserKey.allClients);
 
-    // const person = personArray.find(p => p.idClient === cuurentID);
+    const person = personArray.find(p => p.idClient === cuurentID);
 
     function LogOut() {
         console.log("salut tout le monde");
@@ -40,35 +40,40 @@ export default function Profile(props) {
     const ActiveDarkTheme = (valeur) => {
         dispatch(activeDarkTheme(valeur));
     }
+    const { height } = Dimensions.get('window');
 
     return (
-        <View style={[styles.container, {backgroundColor: themeSelf.colors.background}]}>
-            <View style={[styles.containerHeader, {backgroundColor: themeSelf.colors.primary}]}>
-                <View style={styles.containerImage}>
-                    <Image source={require('../assets/Photos/PhotoProfileExample.webp')}
-                           style={{width: wp('38%'), height: hp('20%'), borderRadius: hp('20%') / 2}}/>
-                </View>
-                <View style={styles.containerNomPrenom}>
-                    <View>
-                        {/*<Text style={styles.containerPrenom}>{person?.name}</Text>*/}
+
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{height:height}}>
+            <View style={[styles.container, {backgroundColor: themeSelf.colors.background}]}>
+
+                <View style={[styles.containerHeader, {backgroundColor: themeSelf.colors.primary}]}>
+                    <View style={styles.containerImage}>
+                        <Image source={require('../assets/Photos/PhotoProfileExample.webp')}
+                               style={{width: wp('38%'), height: hp('20%'), borderRadius: hp('20%') / 2}}/>
                     </View>
-                    <View style={styles.containerNom}>
-                        {/*<Text>{person?.surname}</Text>*/}
-                        {/*<Text>ID : {cuurentID}</Text>*/}
+                    <View style={styles.containerNomPrenom}>
+                        <View>
+                            <Text style={{...styles.containerPrenom,color: themeSelf.colors.textColor}}>{person?.name}</Text>
+                        </View>
+                        <View style={styles.containerNom}>
+                            <Text style={{color:themeSelf.colors.textColor}}>{person?.surname}</Text>
+                            <Text style={{color:themeSelf.colors.textColor}}>ID : {cuurentID}</Text>
+                        </View>
                     </View>
                 </View>
-            </View>
-            <View style={[styles.containerSecondaire, {backgroundColor: themeSelf.colors.primary}]}>
-                <SectionProfile text="Notifactions" onClick={notifActive} default={true}/>
-                <Divider/>
-                <SectionProfile text="Theme sombre" onClick={ActiveDarkTheme} default={true}/>
-                <Divider/>
-                <SectionProfile text="Tri Activé" onClick={ownHomesActive} default={false}/>
-                <Divider/>
-                <Button mode='contained' color={themeSelf.colors.accent} onPress={LogOut}>Log out</Button>
+                <View style={[styles.containerSecondaire, {backgroundColor: themeSelf.colors.primary}]}>
+                    <SectionProfile text="Notifactions" onClick={notifActive} default={true}/>
+                    <Divider/>
+                    <SectionProfile text="Theme sombre" onClick={ActiveDarkTheme} default={true}/>
+                    <Divider/>
+                    <SectionProfile text="Tri Activé" onClick={ownHomesActive} default={false}/>
+                    <Divider/>
+                    <Button mode='contained' color={themeSelf.colors.accent} onPress={LogOut}>Log out</Button>
+                </View>
 
             </View>
-        </View>
+        </ScrollView>
     );
 }
 

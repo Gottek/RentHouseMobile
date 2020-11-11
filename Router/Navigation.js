@@ -25,7 +25,7 @@ export const StackNavigator = () => {
             })}/>
             <Stack.Screen name="Connexion" component={Connexion}/>
             <Stack.Screen name="Maps" component={Maps} options={screenOptionMaps}/>
-            <Stack.Screen name="HomeDetails" component={HomeDetails} options={screenOptionHomeDetails}/>
+            <Stack.Screen name="HomeDetails" component={HomeDetails} options={{...screenOptionHomeDetails, headerStyle: {backgroundColor: themeSelf.colors.accent},headerTintColor: 'white'}}/>
         </Stack.Navigator>
     );
 }
