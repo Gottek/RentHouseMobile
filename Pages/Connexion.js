@@ -3,13 +3,15 @@ import {Keyboard, StyleSheet, TouchableWithoutFeedback, View} from "react-native
 import React from "react";
 import {Button} from 'react-native-paper';
 import Colors from "../Constants/Colors";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Home from "../Models/Home";
 import {getAllMyClients, setCurrentUserID} from "../Store/Actions/UsersActions";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {getAllHomes} from "../Store/Actions/HomeActions";
+import {getAllClientAPI} from "../Api/api";
 
 export default function ProfilesPage(props){
-
+    const themeSelf = useSelector(state => state.reducerUserKey.themeSelf);
 
     const dispatch = useDispatch();
 
@@ -21,14 +23,19 @@ export default function ProfilesPage(props){
         codePostal:""
     });
 
-    React.useEffect(() => {
-
-        const fetchData = async () => {
-            // const allcli = await getAllMyClients();
-            setAllClients(await getAllMyClients());
+    React.useEffect(()=>{
+        const fetchHomes = async () =>{
+            await dispatch( getAllHomes() ) ;
         }
-        fetchData().then("fetch OK").catch(err => console.log(err));
-    },[]);
+        const fetchClients = async () =>{
+            await dispatch( getAllMyClients() );
+            const cli = await getAllClientAPI();
+            setAllClients(cli);
+            console.log(cli);
+        }
+        fetchHomes().then(console.log("Fetch homes OK"));
+        fetchClients().then(console.log("Fetch clients OK")).catch(err => console.log(err));
+    },[])
 
     async function checkUserInput(){
         await checkUserData();
@@ -83,10 +90,10 @@ export default function ProfilesPage(props){
     return (
         <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
 
-            <View style={styles.container}>
+            <View style={[styles.container,{backgroundColor:themeSelf.colors.background}]}>
                 <PersoInput texto={"Email"} valeur={userInput.name} getText={(t) => setUserInput({...userInput,name: t}) }/>
                 <PersoInput texto={"Mot de passe"} valeur={userInput.postalCode} getText={(t) => setUserInput({...userInput,codePostal: t})} />
-                <Button mode='outlined' color={Colors.purpleStyle} onPress={checkUserInput}>Valider</Button>
+                <Button mode='contained' color={themeSelf.colors.accent} onPress={checkUserInput}>Valider</Button>
             </View>
         </TouchableWithoutFeedback>
     );

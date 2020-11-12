@@ -59,7 +59,7 @@ export const Add =(props)=> {
         totalArea: 138,
         rentCost:764,
         fixedChargesCost:324,
-        imageLink:"",
+        imageLink:null,
         isCurrentlyRented:false,
         idProprio:currentID, //Propriétaire par défaut a changer
         longitude:0.0,
@@ -71,12 +71,8 @@ export const Add =(props)=> {
 
     async function sendToHome(){
         await navigator.geolocation.getCurrentPosition(async pos=>{
-            await setState({...state,latitude:pos.coords.latitude,longitude:pos.coords.longitude})
-            await redirect();
-            console.log(state);
+            setState({...state,latitude:pos.coords.latitude,longitude:pos.coords.longitude})
         });
-    }
-    const redirect = async() => {
         displayNotif ? await schedulePushNotification():'';
         dispatch(addHome(state))
         clean();

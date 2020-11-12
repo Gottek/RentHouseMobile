@@ -6,7 +6,7 @@ import axios from 'axios';
  * Neccesaire pour transiter les requétes API vers l'appareil mobile physique
 */
 
-const URL_API = "http://4a475c121858.ngrok.io";
+const URL_API = "http://c605f36589e4.ngrok.io";
 
 export const getAllProperties = async () => {
     let data;
@@ -36,7 +36,7 @@ export const deleteHome = async (idHome) => {
 
 
 
-export const getAllClient = async () => {
+export const getAllClientAPI = async () => {
     let datas;
     await axios.get(URL_API+"/api/client")
         .then(res => datas = res.data)

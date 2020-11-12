@@ -16,7 +16,7 @@ export const StackNavigator = () => {
     const themeSelf = useSelector(state => state.reducerUserKey.themeSelf);
 
     return (
-        <Stack.Navigator initialRouteName="Home" screenOptions={{
+        <Stack.Navigator initialRouteName="Connexion" screenOptions={{
             headerTitleAlign: "center",
             headerStyle: {backgroundColor: themeSelf.colors.accent},headerTintColor: 'white'
         }}>

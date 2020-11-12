@@ -1,4 +1,4 @@
-import {getAllClient} from "../../Api/api";
+import {getAllClientAPI} from "../../Api/api";
 
 export const ACTIVE_NOTIFICATIONS='ACTIVE_NOTIFICATIONS';
 export const ACTIVE_DARK_THEME='ACTIVE_DARK_THEME';
@@ -19,7 +19,7 @@ export const setCurrentUserID = userID => {
 
 export const getAllMyClients = () => {
     return async dispatch => {
-        const datas = await getAllClient().then();
+        const datas = await getAllClientAPI().then();
         dispatch({type: GET_ALL_CLIENTS , allClientsKEY : datas });
     }
 }
